@@ -1,23 +1,18 @@
 import { useMemo, useState } from 'react';
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import familyData from './data/familyData.json';
+import FamilyStoryPage from './components/FamilyStoryPage';
+import FamilyTreePage from './components/FamilyTreePage';
+import InfoPage from './components/InfoPage';
+import PageLayout from './components/PageLayout';
+import PeopleTable from './components/PeopleTable';
+import PersonModal from './components/PersonModal';
 import type { FamilyData, Person } from './types';
 
 const data = familyData as FamilyData;
 
 type SortKey = 'name' | 'born';
 type SortDirection = 'asc' | 'desc';
-
-const formatDate = (value: string) => {
-  if (!value) return '—';
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleDateString('is-IS', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-};
 
 const getDisplayValue = (value: string | null) => value && value.trim() ? value : '—';
 
@@ -62,6 +57,11 @@ const HomePage = () => {
     setShowModal(true);
   };
 
+  const selectPersonInModal = (person: Person) => {
+    setSelectedPerson(person);
+    setShowModal(true);
+  };
+
   const closeModal = () => {
     setShowModal(false);
     setSelectedPerson(null);
@@ -90,94 +90,41 @@ const HomePage = () => {
   return (
     <main className="page-shell">
       <section className="card">
-        <div className="table-wrapper">
-          <table className="people-table">
-            <thead>
-              <tr>
-                <th>
-                  <button type="button" onClick={() => toggleSort('name')}>
-                    Nafn {sortKey === 'name' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-                  </button>
-                </th>
-                <th>
-                  <button type="button" onClick={() => toggleSort('born')}>
-                    Fæddur {sortKey === 'born' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-                  </button>
-                </th>
-                <th>Fjölskylda</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedPersons.map((person) => {
-                const father = getPersonByName(person.father, data.persons);
-                const mother = getPersonByName(person.mother, data.persons);
-                return (
-                  <tr key={person.name} onClick={() => openModal(person)}>
-                    <td>{person.name}</td>
-                    <td>{formatDate(person.born)}</td>
-                    <td>{[father?.name, mother?.name].filter(Boolean).join(' / ') || '—'}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <PeopleTable
+          people={sortedPersons.map((person) => {
+            const father = getPersonByName(person.father, data.persons);
+            const mother = getPersonByName(person.mother, data.persons);
+            return {
+              ...person,
+              father: father?.name ?? null,
+              mother: mother?.name ?? null
+            };
+          })}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          onSort={toggleSort}
+          onSelectPerson={openModal}
+        />
       </section>
 
       {showModal && selectedPerson && (
-        <div className="modal-backdrop" onClick={closeModal}>
-          <div className="modal-card" onClick={(event) => event.stopPropagation()}>
-            <button className="modal-close" type="button" onClick={closeModal}>
-              Loka
-            </button>
-
-            <div className="modal-content">
-              <img
-                className="person-image"
-                src={getPersonImageUrl(selectedPerson.name)}
-                alt={selectedPerson.name}
-                onError={(event) => {
-                  event.currentTarget.src = '/images/placeholder-person.svg';
-                }}
-              />
-
-              <div className="modal-text">
-                <h2>{selectedPerson.name}</h2>
-                <p>
-                  <strong>Afmæli:</strong> {getDisplayValue(selectedPerson.born)}
-                </p>
-                <p>
-                  <strong>Fæddur:</strong> {getDisplayValue(formatDate(selectedPerson.born))}
-                </p>
-                <p>
-                  <strong>Heimilisfang:</strong> {getDisplayValue(selectedPerson.address)}
-                </p>
-                <p>
-                  <strong>Sími:</strong> {getDisplayValue(selectedPerson.phone)}
-                </p>
-
-                <div className="relations-block">
-                  <p>
-                    <strong>Foreldrar</strong>
-                  </p>
-                  <p>{getDisplayValue(getPersonByName(selectedPerson.father, data.persons)?.name ?? null)}</p>
-                  <p>{getDisplayValue(getPersonByName(selectedPerson.mother, data.persons)?.name ?? null)}</p>
-                </div>
-
-                <div className="relations-block">
-                  <p>
-                    <strong>Börn</strong>
-                  </p>
-                  {orderedChildren.length > 0 ? (
-                    orderedChildren.map((child) => <p key={child.name}>{child.name}</p>)
-                  ) : (
-                    <p>—</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PersonModal
+          person={selectedPerson}
+          onClose={closeModal}
+          onImageError={() => {
+            const img = document.querySelector('.person-image') as HTMLImageElement | null;
+            if (img) {
+              img.src = '/images/placeholder-person.svg';
+            }
+          }}
+          imageUrl={getPersonImageUrl(selectedPerson.name)}
+          displayName={selectedPerson.name}
+          bornLabel={getDisplayValue(selectedPerson.born)}
+          relationList={orderedChildren.map((child) => child.name)}
+          parentNames={[selectedPerson.father, selectedPerson.mother].filter(Boolean) as string[]}
+          spouseName={selectedPerson.spouse}
+          onSelectPerson={selectPersonInModal}
+        />
       )}
     </main>
   );
@@ -185,31 +132,16 @@ const HomePage = () => {
 
 const NotFoundPage = () => <main className="page-shell"><section className="card"><h2>Síða fannst ekki</h2></section></main>;
 
-const App = () => {
-  const location = useLocation();
-  return (
-    <div className="app-shell">
-      <header className="site-header">
-        <div className="brand">Ættartré - {data.patriot}</div>
-        <nav className="top-nav">
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
-            Heimasíða
-          </Link>
-          <Link to="/upplýsingar" className={location.pathname === '/upplýsingar' ? 'active' : ''}>
-            Upplýsingar
-          </Link>
-        </nav>
-      </header>
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/upplýsingar" element={<section className="page-shell"><section className="card"><h2>Skjástækkun fyrir framtíðarsíður</h2><p>Þessi uppsetning er hönnuð til að auðvelda viðbætur og fleiri síður síðar.</p></section></section>} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-
-      <footer className="site-footer">Developed by Jóhann Hallgrímsson</footer>
-    </div>
-  );
-};
+const App = () => (
+  <PageLayout patriot={data.patriot}>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/upplýsingar" element={<InfoPage />} />
+      <Route path="/ættarsaga" element={<FamilyStoryPage />} />
+      <Route path="/vidartre" element={<FamilyTreePage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  </PageLayout>
+);
 
 export default App;

@@ -11,7 +11,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "born", "father", "mother", "gender", "address", "phone"],
+        "required": ["name", "born", "father", "mother", "spouse", "gender", "address", "phone"],
         "properties": {
           "name": {
             "type": "string"
@@ -23,6 +23,9 @@
             "type": ["string", "null"]
           },
           "mother": {
+            "type": ["string", "null"]
+          },
+          "spouse": {
             "type": ["string", "null"]
           },
           "gender": {

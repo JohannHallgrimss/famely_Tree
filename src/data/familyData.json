@@ -2,19 +2,55 @@
   "patriot": "Hallgrímur Jónsson",
   "persons": [
     {
-      "name": "Jón Hallgrímsson",
-      "born": "1950-04-12",
+      "name": "Ásgeir Hallgrímsson",
+      "born": "1920-02-14",
       "father": "",
       "mother": "",
+      "gender": "male",
+      "address": "Eyrarbraut 1",
+      "phone": "555-2001"
+    },
+    {
+      "name": "Ragnheiður Jónsdóttir",
+      "born": "1923-07-19",
+      "father": "",
+      "mother": "",
+      "gender": "female",
+      "address": "Eyrarbraut 1",
+      "phone": "555-2002"
+    },
+    {
+      "name": "Jón Hallgrímsson",
+      "born": "1950-04-12",
+      "father": "Ásgeir Hallgrímsson",
+      "mother": "Ragnheiður Jónsdóttir",
       "gender": "male",
       "address": "Álfheimar 12",
       "phone": "555-1001"
     },
     {
-      "name": "Sigríður Jónsdóttir",
-      "born": "1952-06-21",
+      "name": "Jón Árnason",
+      "born": "1924-09-03",
       "father": "",
       "mother": "",
+      "gender": "male",
+      "address": "Bakkabraut 7",
+      "phone": "555-2003"
+    },
+    {
+      "name": "Valgerður Sigurðardóttir",
+      "born": "1926-11-11",
+      "father": "",
+      "mother": "",
+      "gender": "female",
+      "address": "Bakkabraut 7",
+      "phone": "555-2004"
+    },
+    {
+      "name": "Sigríður Jónsdóttir",
+      "born": "1952-06-21",
+      "father": "Jón Árnason",
+      "mother": "Valgerður Sigurðardóttir",
       "gender": "female",
       "address": "Álfheimar 12",
       "phone": "555-1002"
@@ -24,6 +60,7 @@
       "born": "1978-02-03",
       "father": "Jón Hallgrímsson",
       "mother": "Sigríður Jónsdóttir",
+      "spouse": "María Hallgrímsdóttir",
       "gender": "male",
       "address": "Hafnarbraut 8",
       "phone": "555-1003"
@@ -33,9 +70,55 @@
       "born": "1980-11-09",
       "father": "Jón Hallgrímsson",
       "mother": "Sigríður Jónsdóttir",
+      "spouse": "Hallgrímur Jónsson",
       "gender": "female",
       "address": "Hafnarbraut 8",
       "phone": "555-1004"
+    },
+    {
+      "name": "Ásta Hallgrímsdóttir",
+      "born": "1983-01-15",
+      "father": "Hallgrímur Jónsson",
+      "mother": "María Hallgrímsdóttir",
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1006"
+    },
+    {
+      "name": "Ragnar Hallgrímsson",
+      "born": "1985-07-08",
+      "father": "Hallgrímur Jónsson",
+      "mother": "María Hallgrímsdóttir",
+      "gender": "male",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1007"
+    },
+    {
+      "name": "Sigurbjörg Hallgrímsdóttir",
+      "born": "1988-04-22",
+      "father": "Hallgrímur Jónsson",
+      "mother": "María Hallgrímsdóttir",
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1008"
+    },
+    {
+      "name": "Einar Hallgrímsson",
+      "born": "1991-12-01",
+      "father": "Hallgrímur Jónsson",
+      "mother": "María Hallgrímsdóttir",
+      "gender": "male",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1009"
+    },
+    {
+      "name": "Lilja Hallgrímsdóttir",
+      "born": "1994-09-30",
+      "father": "Hallgrímur Jónsson",
+      "mother": "María Hallgrímsdóttir",
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1010"
     },
     {
       "name": "Ari Hallgrímsson",
@@ -44,7 +127,63 @@
       "mother": "María Hallgrímsdóttir",
       "gender": "male",
       "address": "Dalsbraut 3",
-      "phone": "555-1005"
+      "phone": "555-1011"
+    },
+    {
+      "name": "Svanhildur Þórsdóttir",
+      "born": "1980-03-11",
+      "father": "",
+      "mother": "",
+      "spouse": "Árni Gunnarsson",
+      "gender": "female",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1012"
+    },
+    {
+      "name": "Gunnar Árnason",
+      "born": "1950-05-20",
+      "father": "",
+      "mother": "",
+      "gender": "male",
+      "address": "Brekkuvegi 5",
+      "phone": "555-2005"
+    },
+    {
+      "name": "Helga Sigurðardóttir",
+      "born": "1951-08-15",
+      "father": "",
+      "mother": "",
+      "gender": "female",
+      "address": "Brekkuvegi 5",
+      "phone": "555-2006"
+    },
+    {
+      "name": "Árni Gunnarsson",
+      "born": "1979-08-20",
+      "father": "Gunnar Árnason",
+      "mother": "Helga Sigurðardóttir",
+      "spouse": "Svanhildur Þórsdóttir",
+      "gender": "male",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1013"
+    },
+    {
+      "name": "Dagný Svanhildardóttir",
+      "born": "2003-06-09",
+      "father": "Árni Gunnarsson",
+      "mother": "Svanhildur Þórsdóttir",
+      "gender": "female",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1014"
+    },
+    {
+      "name": "Guðmundur Árnason",
+      "born": "2006-10-12",
+      "father": "Árni Gunnarsson",
+      "mother": "Svanhildur Þórsdóttir",
+      "gender": "male",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1015"
     }
   ]
 }
