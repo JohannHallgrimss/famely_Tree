@@ -1,0 +1,50 @@
+{
+  "patriot": "Hallgrímur Jónsson",
+  "persons": [
+    {
+      "name": "Jón Hallgrímsson",
+      "born": "1950-04-12",
+      "father": "",
+      "mother": "",
+      "gender": "male",
+      "address": "Álfheimar 12",
+      "phone": "555-1001"
+    },
+    {
+      "name": "Sigríður Jónsdóttir",
+      "born": "1952-06-21",
+      "father": "",
+      "mother": "",
+      "gender": "female",
+      "address": "Álfheimar 12",
+      "phone": "555-1002"
+    },
+    {
+      "name": "Hallgrímur Jónsson",
+      "born": "1978-02-03",
+      "father": "Jón Hallgrímsson",
+      "mother": "Sigríður Jónsdóttir",
+      "gender": "male",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1003"
+    },
+    {
+      "name": "María Hallgrímsdóttir",
+      "born": "1980-11-09",
+      "father": "Jón Hallgrímsson",
+      "mother": "Sigríður Jónsdóttir",
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1004"
+    },
+    {
+      "name": "Ari Hallgrímsson",
+      "born": "2005-09-17",
+      "father": "Hallgrímur Jónsson",
+      "mother": "María Hallgrímsdóttir",
+      "gender": "male",
+      "address": "Dalsbraut 3",
+      "phone": "555-1005"
+    }
+  ]
+}
