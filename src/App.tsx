@@ -21,6 +21,16 @@ const formatDate = (value: string) => {
 
 const getDisplayValue = (value: string | null) => value && value.trim() ? value : '—';
 
+const getPersonImageUrl = (personName: string) => {
+  const sanitizedName = personName
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9áéíóúýþðæö]+/g, '_')
+    .replace(/(^-|-$)/g, '');
+
+  return `/images/${sanitizedName || 'person'}.jpg`;
+};
+
 const getPersonByName = (name: string | null, persons: Person[]) => {
   if (!name) return null;
   return persons.find((person) => person.name === name) ?? null;
@@ -124,8 +134,11 @@ const HomePage = () => {
             <div className="modal-content">
               <img
                 className="person-image"
-                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80"
+                src={getPersonImageUrl(selectedPerson.name)}
                 alt={selectedPerson.name}
+                onError={(event) => {
+                  event.currentTarget.src = '/images/placeholder-person.svg';
+                }}
               />
 
               <div className="modal-text">
