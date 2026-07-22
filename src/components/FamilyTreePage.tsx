@@ -82,43 +82,74 @@ const FamilyTreePage = () => {
       }));
   }, [people, visiblePeople]);
 
-  const nodePositions = useMemo(() => {
-    const positions = new Map<string, { x: number; y: number }>();
+ const nodePositions = useMemo(() => {
+  const positions = new Map<string, { x: number; y: number }>();
 
-    generationRows.forEach(({ level, persons }) => {
-      persons.forEach((person, index) => {
-        positions.set(person.name, {
-          x: 90 + index * 180,
-          y: 70 + level * 140
+  const COLUMN_WIDTH = 220;
+  const ROW_HEIGHT = 110;
+
+  const maxPeopleInGeneration = Math.max(
+    ...generationRows.map(({ persons }) => persons.length),
+    1
+  );
+
+  generationRows.forEach(({ level, persons }) => {
+    const generationHeight = persons.length * ROW_HEIGHT;
+    const totalHeight = maxPeopleInGeneration * ROW_HEIGHT;
+
+    // miðjar kynslóðina lóðrétt
+    const verticalOffset = (totalHeight - generationHeight) / 2;
+
+    persons.forEach((person, index) => {
+      positions.set(person.name, {
+        // kynslóðir fara frá vinstri til hægri
+        x: 80 + level * COLUMN_WIDTH,
+
+        // einstaklingar innan kynslóðar staflast niður
+        // en kynslóðin sjálf er miðjuð
+        y: 60 + verticalOffset + index * ROW_HEIGHT
+      });
+    });
+  });
+
+  return positions;
+}, [generationRows]);
+
+  const NODE_WIDTH = 140;
+const NODE_HEIGHT = 60;
+
+const connectors = useMemo(() => {
+  const lines: Array<{
+    fromX: number;
+    fromY: number;
+    toX: number;
+    toY: number;
+  }> = [];
+
+  visiblePeople.forEach((person) => {
+    const child = nodePositions.get(person.name);
+
+    if (!child) return;
+
+    [person.father, person.mother]
+      .filter(Boolean)
+      .forEach((parentName) => {
+        const parent = nodePositions.get(parentName!);
+
+        if (!parent) return;
+
+        lines.push({
+          fromX: parent.x + NODE_WIDTH,
+          fromY: parent.y + NODE_HEIGHT / 2,
+
+          toX: child.x,
+          toY: child.y + NODE_HEIGHT / 2
         });
       });
-    });
+  });
 
-    return positions;
-  }, [generationRows]);
-
-  const connectors = useMemo(() => {
-    const lines: Array<{ fromX: number; fromY: number; toX: number; toY: number }> = [];
-
-    visiblePeople.forEach((person) => {
-      const parentNames = [person.father, person.mother].filter(Boolean) as string[];
-      parentNames.forEach((parentName) => {
-        const parentPosition = nodePositions.get(parentName);
-        const childPosition = nodePositions.get(person.name);
-
-        if (parentPosition && childPosition) {
-          lines.push({
-            fromX: parentPosition.x + 70,
-            fromY: parentPosition.y + 30,
-            toX: childPosition.x + 70,
-            toY: childPosition.y + 30
-          });
-        }
-      });
-    });
-
-    return lines;
-  }, [nodePositions, visiblePeople]);
+  return lines;
+}, [nodePositions, visiblePeople]);
 
   const handleSelectPerson = (value: string) => {
     setSearchValue(value);
@@ -171,7 +202,12 @@ const FamilyTreePage = () => {
 
         <div className="tree-board tree-board-overview">
           <div className="tree-graph-shell">
-            <svg className="tree-lines" viewBox="0 0 1100 500" preserveAspectRatio="xMidYMid meet">
+            <svg
+             className="tree-lines"
+                width="1600"
+                height="900"
+                viewBox="0 0 1600 900"
+                >
               {connectors.map((connector, index) => (
                 <line
                   key={`${connector.fromX}-${connector.fromY}-${connector.toX}-${connector.toY}-${index}`}

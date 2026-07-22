@@ -43,7 +43,7 @@ const PeopleTable = ({ people, sortKey, sortDirection, onSort, onSelectPerson }:
             <tr key={person.name} onClick={() => onSelectPerson(person)}>
               <td>{person.name}</td>
               <td>{formatDate(person.born)}</td>
-              <td>{person.father || person.mother ? `${person.father || '—'} / ${person.mother || '—'}` : '—'}</td>
+              <td>{[person.father, person.mother].filter(Boolean).join(' / ') || '—'}</td>
             </tr>
           ))}
         </tbody>
