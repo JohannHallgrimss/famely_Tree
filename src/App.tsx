@@ -164,7 +164,7 @@ const App = () => {
 
         <Route path="/ættarsaga" element={<FamilyStoryPage />} />
 
-        <Route path="/vidartre" element={<FamilyTreePage />} />
+        <Route path="/vidartre" element={<FamilyTreePage  onSelectPerson={openModal} />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

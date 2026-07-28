@@ -372,6 +372,7 @@ a {
   width: 1600px;
   height: 900px;
   overflow: visible;
+  margin-bottom: 70px;
 }
 
 .tree-lines {

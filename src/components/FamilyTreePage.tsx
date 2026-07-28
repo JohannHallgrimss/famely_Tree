@@ -5,38 +5,22 @@ import type { FamilyData, Person } from '../types';
 import { getRelatedPeopleNames } from './familyTreeUtils';
 
 const data = familyData as FamilyData;
+interface FamilyTreeProps {
+  onSelectPerson: (person: Person) => void;
+}
 
-const FamilyTreePage = () => {
+const FamilyTreePage = ({ onSelectPerson }: FamilyTreeProps) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const initialFocus = params.get('focus') ?? '';
   const [focusName, setFocusName] = useState<string>(initialFocus);
   const [searchValue, setSearchValue] = useState<string>(initialFocus);
-  const [showFocusView, setShowFocusView] = useState(false);
 
   const people = useMemo(() => data.persons, []);
   const focusedPerson = useMemo(
     () => people.find((person) => person.name === focusName) ?? people[0] ?? null,
     [focusName, people]
   );
-
-  const parentNames = useMemo(() => {
-    if (!focusedPerson) {
-      return [];
-    }
-
-    return [focusedPerson.father, focusedPerson.mother].filter(Boolean) as string[];
-  }, [focusedPerson]);
-
-  const childNames = useMemo(() => {
-    if (!focusedPerson) {
-      return [];
-    }
-
-    return people
-      .filter((person) => person.father === focusedPerson.name || person.mother === focusedPerson.name)
-      .map((person) => person.name);
-  }, [focusedPerson, people]);
 
   const visiblePeople = useMemo(() => {
     if (!focusName) {
@@ -159,11 +143,11 @@ const connectors = useMemo(() => {
     }
   };
 
-  const handleNodeSelect = (name: string) => {
-    setFocusName(name);
-    setSearchValue(name);
-    setShowFocusView(true);
-  };
+const handleNodeSelect = (person: Person) => {
+  setFocusName(person.name);
+  setSearchValue(person.name);
+  onSelectPerson(person);
+};
 
   return (
     <main className="page-shell">
@@ -235,7 +219,7 @@ const connectors = useMemo(() => {
                       className={`tree-node ${focusName === person.name ? 'tree-node-active' : ''}`}
                       style={{ left: `${position.x}px`, top: `${position.y}px` }}
                       title={person.name}
-                      onClick={() => handleNodeSelect(person.name)}
+                      onClick={() => handleNodeSelect(person)}
                     >
                       <strong>{person.name}</strong>
                       <span>{person.born || '—'}</span>
@@ -246,20 +230,6 @@ const connectors = useMemo(() => {
             ))}
           </div>
         </div>
-
-        {showFocusView && focusedPerson && (
-          <div className="tree-focus-view">
-            <div className="tree-focus-card">
-              <h3>{focusedPerson.name}</h3>
-              <p><strong>Fæddur:</strong> {focusedPerson.born || '—'}</p>
-              <p><strong>Foreldrar:</strong> {parentNames.length > 0 ? parentNames.join(', ') : '—'}</p>
-              <p><strong>Börn:</strong> {childNames.length > 0 ? childNames.join(', ') : '—'}</p>
-              <button type="button" className="tree-focus-close" onClick={() => setShowFocusView(false)}>
-                Loka sýn
-              </button>
-            </div>
-          </div>
-        )}
       </section>
     </main>
   );
