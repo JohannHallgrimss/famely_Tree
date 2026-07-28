@@ -14,8 +14,8 @@ const SiteHeader = ({ patriot }: SiteHeaderProps) => {
         <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
           Heimasíða
         </Link>
-        <Link to="/upplýsingar" className={location.pathname === '/upplýsingar' ? 'active' : ''}>
-          Upplýsingar
+        <Link to="/afmæli" className={location.pathname === '/afmæli' ? 'active' : ''}>
+          Næstu afmæli
         </Link>
         <Link to="/ættarsaga" className={location.pathname === '/ættarsaga' ? 'active' : ''}>
           Ættarsaga

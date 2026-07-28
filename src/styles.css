@@ -81,6 +81,8 @@ a {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-top: 70px;
+  margin-bottom: 70px;
 }
 
 .card {
@@ -101,7 +103,7 @@ a {
 }
 
 .table-wrapper {
-  overflow-x: auto;
+  overflow-x: hidden; /*auto*/
 }
 
 .people-table {
@@ -179,6 +181,9 @@ a {
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease;
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
 }
 
 .modal-close:hover {
