@@ -6,7 +6,6 @@ interface PersonModalProps {
   onImageError: () => void;
   imageUrl: string;
   displayName: string;
-  bornLabel: string;
   relationList: string[];
   parentNames: string[];
   spouseName: string | null;
@@ -21,7 +20,6 @@ const PersonModal = ({
   onImageError,
   imageUrl,
   displayName,
-  bornLabel,
   relationList,
   parentNames,
   spouseName,

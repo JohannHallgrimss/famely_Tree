@@ -227,7 +227,6 @@ const getDaysUntilBirthday = (born: string | null) => {
           }}
           imageUrl={getPersonImageUrl(selectedPerson.name)}
           displayName={selectedPerson.name}
-          bornLabel={getDisplayValue(selectedPerson.born)}
           age={getPersonAge(selectedPerson.born)  }
           daysUntilBirthday={getDaysUntilBirthday(selectedPerson.born)  }
           relationList={orderedChildren.map(
