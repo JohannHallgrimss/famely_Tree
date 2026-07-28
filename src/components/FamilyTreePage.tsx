@@ -17,11 +17,7 @@ const FamilyTreePage = ({ onSelectPerson }: FamilyTreeProps) => {
   const [searchValue, setSearchValue] = useState<string>(initialFocus);
 
   const people = useMemo(() => data.persons, []);
-  const focusedPerson = useMemo(
-    () => people.find((person) => person.name === focusName) ?? people[0] ?? null,
-    [focusName, people]
-  );
-
+  
   const visiblePeople = useMemo(() => {
     if (!focusName) {
       return people;
