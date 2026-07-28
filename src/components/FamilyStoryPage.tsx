@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react";
-import { loadData } from '../data/dataLoader';
+
 import type { FamilyData } from '../types';
 
-export const FamilyStoryPage = () => {
-  const [data, setData] = useState<FamilyData | null>(null);
+interface FamilyStoryPageProps {
+  data: FamilyData;
+}
 
-  useEffect(() => {
-    const loadFamilyData = async () => {
-      const familyData = await loadData();
-      setData(familyData);
-    };
-
-    loadFamilyData();
-  }, []);
-
-  if (!data) {
-    return <div>Loading...</div>;
-  }
-
+export const FamilyStoryPage = ({data}: FamilyStoryPageProps) => {
+ 
   return (
     <main className="page-shell">
       <section className="card story-card">

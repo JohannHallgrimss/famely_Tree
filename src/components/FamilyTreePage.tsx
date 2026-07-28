@@ -1,21 +1,20 @@
 import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { loadData } from '../data/dataLoader';
 import type { FamilyData, Person } from '../types';
 import { getRelatedPeopleNames } from './familyTreeUtils';
 
-const data = await loadData() as FamilyData;
 interface FamilyTreeProps {
   onSelectPerson: (person: Person) => void;
+   data: FamilyData;
 }
 
-const FamilyTreePage = ({ onSelectPerson }: FamilyTreeProps) => {
-  const location = useLocation();
+const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
+    const location = useLocation();
   const params = new URLSearchParams(location.search);
   const initialFocus = params.get('focus') ?? '';
   const [focusName, setFocusName] = useState<string>(initialFocus);
   const [searchValue, setSearchValue] = useState<string>(initialFocus);
-
+  
   const people = useMemo(() => data.persons, []);
   
   const visiblePeople = useMemo(() => {

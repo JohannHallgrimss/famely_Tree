@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
-import { loadData } from '../data/dataLoader';
 import type { FamilyData, Person } from '../types';
-const data = await loadData() as FamilyData;
 
 interface BirthdayPageProps {
   onSelectPerson: (person: Person) => void;
+  data: FamilyData;
 }
 
 const formatDate = (value: string) => {
@@ -18,7 +17,7 @@ const formatDate = (value: string) => {
   });
 };
 
-const BirthdayPage = ({ onSelectPerson }: BirthdayPageProps) => {
+const BirthdayPage = ({ onSelectPerson, data}: BirthdayPageProps) => {
   const upcomingBirthdays = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

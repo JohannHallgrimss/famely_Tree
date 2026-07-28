@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { loadData } from './data/dataLoader';
 import FamilyStoryPage from './components/FamilyStoryPage';
@@ -9,13 +9,8 @@ import PeopleTable from './components/PeopleTable';
 import PersonModal from './components/PersonModal';
 import type { FamilyData, Person } from './types';
 
-const data = await loadData() as FamilyData;
-
 type SortKey = 'name' | 'born' | 'age' | 'daysUntilBirthday';
 type SortDirection = 'asc' | 'desc';
-
-const getDisplayValue = (value: string | null) =>
-  value && value.trim() ? value : '—';
 
 const getPersonImageUrl = (personName: string) => {
   const sanitizedName = personName
@@ -50,9 +45,11 @@ const sortPersons = (
 
 interface HomePageProps {
   onSelectPerson: (person: Person) => void;
+  data: FamilyData;
 }
 
-const HomePage = ({ onSelectPerson }: HomePageProps) => {
+const HomePage = ({ onSelectPerson, data }: HomePageProps) => {
+
   const [sortKey, setSortKey] = useState<SortKey>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
 
@@ -113,6 +110,16 @@ const NotFoundPage = () => (
 const App = () => {
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState<FamilyData | null>(null);
+
+  useEffect(() => {
+    loadData().then(setData);
+  }, []);
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
 
 
   const openModal = (person: Person) => {
@@ -134,10 +141,10 @@ const App = () => {
 
   const children = selectedPerson
     ? data.persons.filter(
-        (person) =>
-          person.father === selectedPerson.name ||
-          person.mother === selectedPerson.name
-      )
+      (person) =>
+        person.father === selectedPerson.name ||
+        person.mother === selectedPerson.name
+    )
     : [];
 
 
@@ -147,26 +154,26 @@ const App = () => {
       new Date(b.born).getTime()
     );
   });
-const getPersonAge = (born: string | null) => {
-  if (!born) return null;
+  const getPersonAge = (born: string | null) => {
+    if (!born) return null;
 
-  const birthDate = new Date(born);
-  const today = new Date();
+    const birthDate = new Date(born);
+    const today = new Date();
 
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const monthDiff = today.getMonth() - birthDate.getMonth();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
 
-  if (
-    monthDiff < 0 ||
-    (monthDiff === 0 && today.getDate() < birthDate.getDate())
-  ) {
-    age--;
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
   }
 
-  return age;
-}
-
-const getDaysUntilBirthday = (born: string | null) => {
+  const getDaysUntilBirthday = (born: string | null) => {
     if (!born) return null;
 
     const today = new Date();
@@ -196,17 +203,17 @@ const getDaysUntilBirthday = (born: string | null) => {
       <Routes>
         <Route
           path="/"
-          element={<HomePage onSelectPerson={openModal} />}
+          element={<HomePage onSelectPerson={openModal} data={data} />}
         />
 
         <Route
           path="/afmæli"
-          element={<BirthdayPage onSelectPerson={openModal} />}
+          element={<BirthdayPage onSelectPerson={openModal} data={data} />}
         />
 
-        <Route path="/ættarsaga" element={<FamilyStoryPage />} />
+        <Route path="/ættarsaga" element={<FamilyStoryPage data={data} />} />
 
-        <Route path="/vidartre" element={<FamilyTreePage  onSelectPerson={openModal} />} />
+        <Route path="/vidartre" element={<FamilyTreePage onSelectPerson={openModal} data={data} />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -227,8 +234,8 @@ const getDaysUntilBirthday = (born: string | null) => {
           }}
           imageUrl={getPersonImageUrl(selectedPerson.name)}
           displayName={selectedPerson.name}
-          age={getPersonAge(selectedPerson.born)  }
-          daysUntilBirthday={getDaysUntilBirthday(selectedPerson.born)  }
+          age={getPersonAge(selectedPerson.born)}
+          daysUntilBirthday={getDaysUntilBirthday(selectedPerson.born)}
           relationList={orderedChildren.map(
             (child) => child.name
           )}
