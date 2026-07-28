@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import familyData from '../data/familyData.json';
+import { loadData } from '../data/dataLoader';
 import type { FamilyData, Person } from '../types';
-const data = familyData as FamilyData;
+const data = await loadData() as FamilyData;
 
 interface BirthdayPageProps {
   onSelectPerson: (person: Person) => void;

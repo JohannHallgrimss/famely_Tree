@@ -13,5 +13,7 @@ export interface Person {
 
 export interface FamilyData {
   patriot: string;
+  familyStories: string[];
+  familyStories2: string[];
   persons: Person[];
 }

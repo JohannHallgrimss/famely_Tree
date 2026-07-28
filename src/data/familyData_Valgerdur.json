@@ -1,8 +1,11 @@
 {
-  "patriot": "Hallgrímur Jónsson",
+  "patriot": "Valgerður Einarsdóttir",
+  "familyStories": [
+
+  ],
   "persons": [
     {
-      "name": "Hallgrímur Jónsson",
+      "name": "Valgerður Einarsdóttir",
       "born": "1920-02-14",
       "father": "",
       "mother": "",
@@ -14,7 +17,7 @@
     {
       "name": "11",
       "born": "1963-07-19",
-      "father": "Hallgrímur Jónsson",
+      "father": "Valgerður Einarsdóttir",
       "mother": "Þórunn Rafnar",
       "spouse": "",
       "gender": "female",
@@ -24,7 +27,7 @@
     {
       "name": "12",
       "born": "1950-04-12",
-      "father": "Hallgrímur Jónsson",
+      "father": "Valgerður Einarsdóttir",
       "mother": "Þórunn Rafnar",
       "spouse": "",
       "gender": "male",
@@ -34,7 +37,7 @@
     {
       "name": "13",
       "born": "1924-09-03",
-      "father": "Hallgrímur Jónsson",
+      "father": "Valgerður Einarsdóttir",
       "mother": "Þórunn Rafnar",
       "spouse": "",
       "gender": "male",
@@ -44,7 +47,7 @@
     {
       "name": "14",
       "born": "1926-11-11",
-      "father": "Hallgrímur Jónsson",
+      "father": "Valgerður Einarsdóttir",
       "mother": "Þórunn Rafnar",
       "spouse": "",
       "gender": "female",
@@ -54,7 +57,7 @@
     {
       "name": "15",
       "born": "1952-06-21",
-      "father": "Hallgrímur Jónsson",
+      "father": "Valgerður Einarsdóttir",
       "mother": "Þórunn Rafnar",
       "spouse": "",
       "gender": "female",

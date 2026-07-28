@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import familyData from '../data/familyData.json';
+import { loadData } from '../data/dataLoader';
 import type { FamilyData, Person } from '../types';
 import { getRelatedPeopleNames } from './familyTreeUtils';
 
-const data = familyData as FamilyData;
+const data = await loadData() as FamilyData;
 interface FamilyTreeProps {
   onSelectPerson: (person: Person) => void;
 }

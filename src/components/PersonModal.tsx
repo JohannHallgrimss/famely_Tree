@@ -11,6 +11,7 @@ interface PersonModalProps {
   parentNames: string[];
   spouseName: string | null;
   age: number | null;
+  daysUntilBirthday: number | null;
   onSelectPerson: (person: Person) => void;
 }
 
@@ -25,6 +26,7 @@ const PersonModal = ({
   parentNames,
   spouseName,
   age,  
+  daysUntilBirthday,
   onSelectPerson
 }: PersonModalProps) => (
   <div className="modal-backdrop" onClick={onClose}>
@@ -51,7 +53,7 @@ const PersonModal = ({
           </div>
           <div className="info-grid">
             <p><strong>Afmæli:</strong> {person.born || '—'}</p>
-            <p><strong>Fæddur:</strong> {bornLabel}</p>
+            <p><strong>Dagar í afmæli:</strong> {daysUntilBirthday !== null ? `${daysUntilBirthday} daga` : '—'}</p>
             <p><strong>Aldur:</strong> {age !== null ? age : '—'}</p>
             <p><strong>Heimilisfang:</strong> {person.address || '—'}</p>
             <p><strong>Sími:</strong> {person.phone || '—'}</p>

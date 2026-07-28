@@ -7,6 +7,12 @@
     "patriot": {
       "type": "string"
     },
+    "familyStories": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "string"
+      }
+    },
     "persons": {
       "type": "array",
       "items": {

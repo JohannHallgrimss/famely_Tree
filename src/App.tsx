@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import familyData from './data/familyData.json';
+import { loadData } from './data/dataLoader';
 import FamilyStoryPage from './components/FamilyStoryPage';
 import FamilyTreePage from './components/FamilyTreePage';
 import BirthdayPage from './components/BirthdayPage';
@@ -9,9 +9,9 @@ import PeopleTable from './components/PeopleTable';
 import PersonModal from './components/PersonModal';
 import type { FamilyData, Person } from './types';
 
-const data = familyData as FamilyData;
+const data = await loadData() as FamilyData;
 
-type SortKey = 'name' | 'born' | 'age';
+type SortKey = 'name' | 'born' | 'age' | 'daysUntilBirthday';
 type SortDirection = 'asc' | 'desc';
 
 const getDisplayValue = (value: string | null) =>
@@ -166,6 +166,31 @@ const getPersonAge = (born: string | null) => {
   return age;
 }
 
+const getDaysUntilBirthday = (born: string | null) => {
+    if (!born) return null;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const birthday = new Date(born);
+    const nextBirthday = new Date(
+      today.getFullYear(),
+      birthday.getMonth(),
+      birthday.getDate()
+    );
+    nextBirthday.setHours(0, 0, 0, 0);
+
+    if (nextBirthday < today) {
+      nextBirthday.setFullYear(today.getFullYear() + 1);
+    }
+
+    const daysUntilBirthday = Math.round(
+      (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    return daysUntilBirthday;
+  }
+
   return (
     <PageLayout patriot={data.patriot}>
       <Routes>
@@ -204,6 +229,7 @@ const getPersonAge = (born: string | null) => {
           displayName={selectedPerson.name}
           bornLabel={getDisplayValue(selectedPerson.born)}
           age={getPersonAge(selectedPerson.born)  }
+          daysUntilBirthday={getDaysUntilBirthday(selectedPerson.born)  }
           relationList={orderedChildren.map(
             (child) => child.name
           )}
