@@ -2,9 +2,9 @@ import type { Person } from '../types';
 
 interface PeopleTableProps {
   people: Person[];
-  sortKey: 'name' | 'born';
+  sortKey: 'name' | 'born' | 'age';
   sortDirection: 'asc' | 'desc';
-  onSort: (key: 'name' | 'born') => void;
+  onSort: (key: 'name' | 'born' | 'age') => void;
   onSelectPerson: (person: Person) => void;
 }
 
@@ -20,6 +20,24 @@ const PeopleTable = ({ people, sortKey, sortDirection, onSort, onSelectPerson }:
     });
   };
 
+  const getPersonAge = (born: string | null) => {
+  if (!born) return null;
+
+  const birthDate = new Date(born);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+}
   return (
     <div className="table-wrapper">
       <table className="people-table">
@@ -35,7 +53,11 @@ const PeopleTable = ({ people, sortKey, sortDirection, onSort, onSelectPerson }:
                 Fæddur {sortKey === 'born' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
               </button>
             </th>
-            <th>Fjölskylda</th>
+            <th>
+              <button type="button" onClick={() => onSort('age')}>
+                Aldur {sortKey === 'age' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +65,7 @@ const PeopleTable = ({ people, sortKey, sortDirection, onSort, onSelectPerson }:
             <tr key={person.name} onClick={() => onSelectPerson(person)}>
               <td>{person.name}</td>
               <td>{formatDate(person.born)}</td>
-              <td>{[person.father, person.mother].filter(Boolean).join(' / ') || '—'}</td>
+              <td>{getPersonAge(person.born)}</td>
             </tr>
           ))}
         </tbody>

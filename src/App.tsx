@@ -11,7 +11,7 @@ import type { FamilyData, Person } from './types';
 
 const data = familyData as FamilyData;
 
-type SortKey = 'name' | 'born';
+type SortKey = 'name' | 'born' | 'age';
 type SortDirection = 'asc' | 'desc';
 
 const getDisplayValue = (value: string | null) =>
@@ -147,7 +147,24 @@ const App = () => {
       new Date(b.born).getTime()
     );
   });
+const getPersonAge = (born: string | null) => {
+  if (!born) return null;
 
+  const birthDate = new Date(born);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+}
 
   return (
     <PageLayout patriot={data.patriot}>
@@ -186,6 +203,7 @@ const App = () => {
           imageUrl={getPersonImageUrl(selectedPerson.name)}
           displayName={selectedPerson.name}
           bornLabel={getDisplayValue(selectedPerson.born)}
+          age={getPersonAge(selectedPerson.born)  }
           relationList={orderedChildren.map(
             (child) => child.name
           )}
