@@ -5,18 +5,18 @@ import { getRelatedPeopleNames } from './familyTreeUtils';
 
 interface FamilyTreeProps {
   onSelectPerson: (person: Person) => void;
-   data: FamilyData;
+  data: FamilyData;
 }
 
 const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
-    const location = useLocation();
+  const location = useLocation();
   const params = new URLSearchParams(location.search);
   const initialFocus = params.get('focus') ?? '';
   const [focusName, setFocusName] = useState<string>(initialFocus);
   const [searchValue, setSearchValue] = useState<string>(initialFocus);
-  
-  const people = useMemo(() => data.persons, []);
-  
+
+  const people = data.persons;
+
   const visiblePeople = useMemo(() => {
     if (!focusName) {
       return people;
@@ -61,74 +61,74 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
       }));
   }, [people, visiblePeople]);
 
- const nodePositions = useMemo(() => {
-  const positions = new Map<string, { x: number; y: number }>();
+  const nodePositions = useMemo(() => {
+    const positions = new Map<string, { x: number; y: number }>();
 
-  const COLUMN_WIDTH = 220;
-  const ROW_HEIGHT = 110;
+    const COLUMN_WIDTH = 220;
+    const ROW_HEIGHT = 110;
 
-  const maxPeopleInGeneration = Math.max(
-    ...generationRows.map(({ persons }) => persons.length),
-    1
-  );
+    const maxPeopleInGeneration = Math.max(
+      ...generationRows.map(({ persons }) => persons.length),
+      1
+    );
 
-  generationRows.forEach(({ level, persons }) => {
-    const generationHeight = persons.length * ROW_HEIGHT;
-    const totalHeight = maxPeopleInGeneration * ROW_HEIGHT;
+    generationRows.forEach(({ level, persons }) => {
+      const generationHeight = persons.length * ROW_HEIGHT;
+      const totalHeight = maxPeopleInGeneration * ROW_HEIGHT;
 
-    // miðjar kynslóðina lóðrétt
-    const verticalOffset = (totalHeight - generationHeight) / 2;
+      // miðjar kynslóðina lóðrétt
+      const verticalOffset = (totalHeight - generationHeight) / 2;
 
-    persons.forEach((person, index) => {
-      positions.set(person.name, {
-        // kynslóðir fara frá vinstri til hægri
-        x: 80 + level * COLUMN_WIDTH,
+      persons.forEach((person, index) => {
+        positions.set(person.name, {
+          // kynslóðir fara frá vinstri til hægri
+          x: 80 + level * COLUMN_WIDTH,
 
-        // einstaklingar innan kynslóðar staflast niður
-        // en kynslóðin sjálf er miðjuð
-        y: 60 + verticalOffset + index * ROW_HEIGHT
-      });
-    });
-  });
-
-  return positions;
-}, [generationRows]);
-
-  const NODE_WIDTH = 140;
-const NODE_HEIGHT = 60;
-
-const connectors = useMemo(() => {
-  const lines: Array<{
-    fromX: number;
-    fromY: number;
-    toX: number;
-    toY: number;
-  }> = [];
-
-  visiblePeople.forEach((person) => {
-    const child = nodePositions.get(person.name);
-
-    if (!child) return;
-
-    [person.father, person.mother]
-      .filter(Boolean)
-      .forEach((parentName) => {
-        const parent = nodePositions.get(parentName!);
-
-        if (!parent) return;
-
-        lines.push({
-          fromX: parent.x + NODE_WIDTH,
-          fromY: parent.y + NODE_HEIGHT / 2,
-
-          toX: child.x,
-          toY: child.y + NODE_HEIGHT / 2
+          // einstaklingar innan kynslóðar staflast niður
+          // en kynslóðin sjálf er miðjuð
+          y: 60 + verticalOffset + index * ROW_HEIGHT
         });
       });
-  });
+    });
 
-  return lines;
-}, [nodePositions, visiblePeople]);
+    return positions;
+  }, [generationRows]);
+
+  const NODE_WIDTH = 140;
+  const NODE_HEIGHT = 60;
+
+  const connectors = useMemo(() => {
+    const lines: Array<{
+      fromX: number;
+      fromY: number;
+      toX: number;
+      toY: number;
+    }> = [];
+
+    visiblePeople.forEach((person) => {
+      const child = nodePositions.get(person.name);
+
+      if (!child) return;
+
+      [person.father, person.mother]
+        .filter(Boolean)
+        .forEach((parentName) => {
+          const parent = nodePositions.get(parentName!);
+
+          if (!parent) return;
+
+          lines.push({
+            fromX: parent.x + NODE_WIDTH,
+            fromY: parent.y + NODE_HEIGHT / 2,
+
+            toX: child.x,
+            toY: child.y + NODE_HEIGHT / 2
+          });
+        });
+    });
+
+    return lines;
+  }, [nodePositions, visiblePeople]);
 
   const handleSelectPerson = (value: string) => {
     setSearchValue(value);
@@ -138,11 +138,11 @@ const connectors = useMemo(() => {
     }
   };
 
-const handleNodeSelect = (person: Person) => {
-  setFocusName(person.name);
-  setSearchValue(person.name);
-  onSelectPerson(person);
-};
+  const handleNodeSelect = (person: Person) => {
+    setFocusName(person.name);
+    setSearchValue(person.name);
+    onSelectPerson(person);
+  };
 
   return (
     <main className="page-shell">
@@ -182,11 +182,11 @@ const handleNodeSelect = (person: Person) => {
         <div className="tree-board tree-board-overview">
           <div className="tree-graph-shell">
             <svg
-             className="tree-lines"
-                width="1600"
-                height="900"
-                viewBox="0 0 1600 900"
-                >
+              className="tree-lines"
+              width="1600"
+              height="900"
+              viewBox="0 0 1600 900"
+            >
               {connectors.map((connector, index) => (
                 <line
                   key={`${connector.fromX}-${connector.fromY}-${connector.toX}-${connector.toY}-${index}`}

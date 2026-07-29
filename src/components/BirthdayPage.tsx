@@ -17,7 +17,7 @@ const formatDate = (value: string) => {
   });
 };
 
-const BirthdayPage = ({ onSelectPerson, data}: BirthdayPageProps) => {
+const BirthdayPage = ({ onSelectPerson, data }: BirthdayPageProps) => {
   const upcomingBirthdays = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

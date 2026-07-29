@@ -84,6 +84,48 @@ a {
   margin-top: 70px;
   margin-bottom: 70px;
 }
+.family-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f7ff;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+
+  padding: 0.65rem 2.5rem 0.65rem 1rem;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8ec5ff 50%),
+    linear-gradient(135deg, #8ec5ff 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+
+  background-size:
+    6px 6px,
+    6px 6px;
+
+  background-repeat: no-repeat;
+}
+
+.family-select:focus {
+  outline: 2px solid rgba(138, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+.family-select option {
+  background:  rgb(159, 189, 244);
+  color: rgb(15, 4, 70);
+}
 
 .card {
   width: min(1100px, 100%);
@@ -372,7 +414,6 @@ a {
   width: 1600px;
   height: 900px;
   overflow: visible;
-  margin-bottom: 70px;
 }
 
 .tree-lines {

@@ -1,22 +1,23 @@
-import { FamilyData } from "../types";
+import type { FamilyData } from "../types";
 
 const files = {
-  hallgrimurJonsson: () => import("./familyData_Hallgr.json"),
+  hallgrimurJonsson: () => import("./familyData_Hallgrimur.json"),
   valgerdurEinarsdottir: () => import("./familyData_Valgerdur.json"),
 };
-export type Language = keyof typeof files;
 
-let currentLanguage: Language = "hallgrimurJonsson";
+export type FamilyDataset = keyof typeof files;
 
-export function setLanguage(lang: Language) {
-  currentLanguage = lang;
+let currentFamilyDataset: FamilyDataset = "hallgrimurJonsson";
+
+export function setFamilyDataset(lang: FamilyDataset) {
+  currentFamilyDataset = lang;
 }
 
-export async function loadData() {
-  const module = await files[currentLanguage]();
-  return module.default as FamilyData
+export function getFamilyDataset() {
+  return currentFamilyDataset;
 }
 
-export function getLanguage() {
-  return currentLanguage;
+export async function loadData(lang: FamilyDataset = currentFamilyDataset) {
+  const module = await files[lang]();
+  return module.default as FamilyData;
 }

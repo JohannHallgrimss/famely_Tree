@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { loadData } from './data/dataLoader';
+import { loadData, getFamilyDataset, FamilyDataset } from './data/dataLoader';
 import FamilyStoryPage from './components/FamilyStoryPage';
 import FamilyTreePage from './components/FamilyTreePage';
 import BirthdayPage from './components/BirthdayPage';
@@ -53,12 +53,10 @@ const HomePage = ({ onSelectPerson, data }: HomePageProps) => {
   const [sortKey, setSortKey] = useState<SortKey>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
 
-
   const sortedPersons = useMemo(
     () => sortPersons(data.persons, sortKey, sortDirection),
-    [sortKey, sortDirection]
+    [data.persons, sortKey, sortDirection]
   );
-
 
   const toggleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -106,32 +104,43 @@ const NotFoundPage = () => (
   </main>
 );
 
-
 const App = () => {
-  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
-  const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState<FamilyData | null>(null);
+  const [familyDataset, setFamilyDataset] = useState<FamilyDataset>(getFamilyDataset());
 
   useEffect(() => {
-    loadData().then(setData);
-  }, []);
+    loadData(familyDataset).then(setData);
+  }, [familyDataset]);
 
   if (!data) {
     return <div>Loading...</div>;
   }
 
+  return <AppContent data={data} familyDataset={familyDataset} setFamilyDataset={setFamilyDataset} />;
+};
 
+interface AppContentProps {
+  data: FamilyData;
+  familyDataset: FamilyDataset;
+  setFamilyDataset: (familyDataset: FamilyDataset) => void;
+}
+
+const AppContent = ({
+  data,
+  familyDataset,
+  setFamilyDataset
+}: AppContentProps) => {
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const openModal = (person: Person) => {
     setSelectedPerson(person);
     setShowModal(true);
   };
 
-
   const selectPersonInModal = (person: Person) => {
     setSelectedPerson(person);
   };
-
 
   const closeModal = () => {
     setShowModal(false);
@@ -199,7 +208,11 @@ const App = () => {
   }
 
   return (
-    <PageLayout patriot={data.patriot}>
+    <PageLayout
+      patriot={data.patriot}
+      familyDataset={familyDataset}
+      onFamilyDatasetChange={setFamilyDataset}
+    >
       <Routes>
         <Route
           path="/"

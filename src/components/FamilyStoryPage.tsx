@@ -5,8 +5,8 @@ interface FamilyStoryPageProps {
   data: FamilyData;
 }
 
-export const FamilyStoryPage = ({data}: FamilyStoryPageProps) => {
- 
+export const FamilyStoryPage = ({ data }: FamilyStoryPageProps) => {
+
   return (
     <main className="page-shell">
       <section className="card story-card">

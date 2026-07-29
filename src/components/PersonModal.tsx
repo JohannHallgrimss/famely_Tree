@@ -23,7 +23,7 @@ const PersonModal = ({
   relationList,
   parentNames,
   spouseName,
-  age,  
+  age,
   daysUntilBirthday,
   onSelectPerson
 }: PersonModalProps) => (
