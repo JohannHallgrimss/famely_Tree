@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import type { FamilyDataset } from "../data/dataLoader";
 
@@ -7,6 +8,11 @@ interface SiteHeaderProps {
   onFamilyDatasetChange: (familyDataset: FamilyDataset) => void;
 }
 
+const familyNames: Record<FamilyDataset, string> = {
+  hallgrimurJonsson: "Hallgrímur Jónsson",
+  valgerdurEinarsdottir: "Valgerður Einarsdóttir",
+};
+
 const SiteHeader = ({
   patriot,
   currentFamilyDataset,
@@ -14,18 +20,33 @@ const SiteHeader = ({
 }: SiteHeaderProps) => {
   const location = useLocation();
 
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  const selectFamily = (family: FamilyDataset) => {
+    onFamilyDatasetChange(family);
+    setOpen(false);
+  };
+
   return (
     <header className="site-header">
-
       <div className="brand">
         🌳 Ættartré - {patriot}
       </div>
 
       <nav className="top-nav">
-        <Link
-          to="/"
-          className={location.pathname === "/" ? "active" : ""}
-        >
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
           Heimasíða
         </Link>
 
@@ -51,25 +72,33 @@ const SiteHeader = ({
         </Link>
       </nav>
 
-
       <div className="header-actions">
-        <select
-          className="family-select"
-          value={currentFamilyDataset}
-          onChange={(e) =>
-            onFamilyDatasetChange(e.target.value as FamilyDataset)
-          }
-        >
-          <option value="hallgrimurJonsson">
-            Hallgrímur Jónsson
-          </option>
+        <div className="family-dropdown" ref={menuRef}>
+          <button
+            className="family-button"
+            onClick={() => setOpen(!open)}
+          >
+            🌳 {familyNames[currentFamilyDataset]}
+            <span className={open ? "arrow open" : "arrow"}>⌄</span>
+          </button>
 
-          <option value="valgerdurEinarsdottir">
-            Valgerður Einarsdóttir
-          </option>
-        </select>
+          {open && (
+            <div className="family-menu">
+              {(Object.keys(familyNames) as FamilyDataset[]).map((family) => (
+                <button
+                  key={family}
+                  className={`family-option ${
+                    family === currentFamilyDataset ? "active" : ""
+                  }`}
+                  onClick={() => selectFamily(family)}
+                >
+                  {familyNames[family]}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-
     </header>
   );
 };
