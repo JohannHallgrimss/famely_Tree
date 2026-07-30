@@ -13,7 +13,6 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   const params = new URLSearchParams(location.search);
   const initialFocus = params.get('focus') ?? '';
   const [focusName, setFocusName] = useState<string>(initialFocus);
-  const [searchValue, setSearchValue] = useState<string>(initialFocus);
 
   const people = data.persons;
 
@@ -132,7 +131,6 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
 
   const handleNodeSelect = (person: Person) => {
     setFocusName(person.name);
-    setSearchValue(person.name);
     onSelectPerson(person);
   };
 
