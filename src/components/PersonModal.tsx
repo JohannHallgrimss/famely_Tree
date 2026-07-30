@@ -8,10 +8,10 @@ interface PersonModalProps {
   displayName: string;
   relationList: string[];
   parentNames: string[];
-  spouseName: string | null;
+  spouseName: string[] | null;
   age: number | null;
   daysUntilBirthday: number | null;
-  onSelectPerson: (person: Person) => void;
+  onSelectPerson: (name: string) => void;
 }
 
 const PersonModal = ({
@@ -41,7 +41,9 @@ const PersonModal = ({
             alt={person.name}
             onError={onImageError}
           />
-          <div className="portrait-badge">{person.gender === 'female' ? 'Kona' : 'Karl'}</div>
+          <div className="portrait-badge">
+            {person.gender === 'female' ? 'Kona' : 'Karl'}
+          </div>
         </div>
 
         <div className="modal-text">
@@ -49,9 +51,13 @@ const PersonModal = ({
             <h2>{displayName}</h2>
             <p className="eyebrow">Persónuupplýsingar</p>
           </div>
+
           <div className="info-grid">
             <p><strong>Afmæli:</strong> {person.born || '—'}</p>
-            <p><strong>Dagar í afmæli:</strong> {daysUntilBirthday !== null ? `${daysUntilBirthday} daga` : '—'}</p>
+            <p>
+              <strong>Dagar í afmæli:</strong>{' '}
+              {daysUntilBirthday !== null ? `${daysUntilBirthday} daga` : '—'}
+            </p>
             <p><strong>Aldur:</strong> {age !== null ? age : '—'}</p>
             <p><strong>Heimilisfang:</strong> {person.address || '—'}</p>
             <p><strong>Sími:</strong> {person.phone || '—'}</p>
@@ -59,43 +65,56 @@ const PersonModal = ({
 
           <div className="relations-block">
             <p><strong>Maki</strong></p>
-            {spouseName ? (
-              <button
-                type="button"
-                className="modal-link"
-                onClick={() => onSelectPerson({ ...person, name: spouseName })}
-              >
-                {spouseName}
-              </button>
-            ) : <p>—</p>}
+            {spouseName && spouseName.length > 0 ? (
+              spouseName.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  className="modal-link"
+                  onClick={() => onSelectPerson(name)}
+                >
+                  {name}
+                </button>
+              ))
+            ) : (
+              <p>—</p>
+            )}
           </div>
 
           <div className="relations-block">
             <p><strong>Foreldrar</strong></p>
-            {parentNames.length > 0 ? parentNames.map((name) => (
-              <button
-                key={name}
-                type="button"
-                className="modal-link"
-                onClick={() => onSelectPerson({ ...person, name })}
-              >
-                {name}
-              </button>
-            )) : <p>—</p>}
+            {parentNames.length > 0 ? (
+              parentNames.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  className="modal-link"
+                  onClick={() => onSelectPerson(name)}
+                >
+                  {name}
+                </button>
+              ))
+            ) : (
+              <p>—</p>
+            )}
           </div>
 
           <div className="relations-block">
             <p><strong>Börn</strong></p>
-            {relationList.length > 0 ? relationList.map((child) => (
-              <button
-                key={child}
-                type="button"
-                className="modal-link"
-                onClick={() => onSelectPerson({ ...person, name: child })}
-              >
-                {child}
-              </button>
-            )) : <p>—</p>}
+            {relationList.length > 0 ? (
+              relationList.map((child) => (
+                <button
+                  key={child}
+                  type="button"
+                  className="modal-link"
+                  onClick={() => onSelectPerson(child)}
+                >
+                  {child}
+                </button>
+              ))
+            ) : (
+              <p>—</p>
+            )}
           </div>
         </div>
       </div>

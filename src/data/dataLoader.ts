@@ -1,8 +1,8 @@
 import type { FamilyData } from "../types";
 
 const files = {
-  hallgrimurJonsson: () => import("./familyData_Hallgrimur.json"),
-  valgerdurEinarsdottir: () => import("./familyData_Valgerdur.json"),
+  hallgrimurJonsson: () => import("./families/hallgrimurJonsson.json"),
+  valgerdurEinarsdottir: () => import("./families/valgerdurEinarsdottir.json"),
 };
 
 export type FamilyDataset = keyof typeof files;

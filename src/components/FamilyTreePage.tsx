@@ -130,14 +130,6 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
     return lines;
   }, [nodePositions, visiblePeople]);
 
-  const handleSelectPerson = (value: string) => {
-    setSearchValue(value);
-    const match = people.find((person) => person.name.toLowerCase() === value.trim().toLowerCase());
-    if (match) {
-      setFocusName(match.name);
-    }
-  };
-
   const handleNodeSelect = (person: Person) => {
     setFocusName(person.name);
     setSearchValue(person.name);
@@ -153,30 +145,6 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
           <p>
             Klassískt ættartré með hæðir, foreldrum og afkomendum í skýrum tengslum.
           </p>
-        </div>
-
-        <div className="tree-toolbar">
-          <label className="tree-search-wrap">
-            <span className="tree-search-label">Veldu einstakling</span>
-            <input
-              className="tree-search"
-              list="person-options"
-              value={searchValue}
-              onChange={(event) => handleSelectPerson(event.target.value)}
-              onBlur={() => {
-                const match = people.find((person) => person.name.toLowerCase() === searchValue.trim().toLowerCase());
-                if (match) {
-                  setFocusName(match.name);
-                }
-              }}
-              placeholder="Skrifaðu nafnið"
-            />
-            <datalist id="person-options">
-              {people.map((person) => (
-                <option key={person.name} value={person.name} />
-              ))}
-            </datalist>
-          </label>
         </div>
 
         <div className="tree-board tree-board-overview">

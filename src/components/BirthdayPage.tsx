@@ -1,52 +1,27 @@
 import { useMemo } from 'react';
 import type { FamilyData, Person } from '../types';
+import { formatDate, getDaysUntilBirthday } from '../utils/dateUtils';
 
 interface BirthdayPageProps {
   onSelectPerson: (person: Person) => void;
   data: FamilyData;
 }
 
-const formatDate = (value: string) => {
-  if (!value) return '—';
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleDateString('is-IS', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
-};
-
 const BirthdayPage = ({ onSelectPerson, data }: BirthdayPageProps) => {
   const upcomingBirthdays = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
     return data.persons
-      .map(person => {
-        const birthday = new Date(person.born);
-
-        const nextBirthday = new Date(
-          today.getFullYear(),
-          birthday.getMonth(),
-          birthday.getDate()
-        );
-        nextBirthday.setHours(0, 0, 0, 0);
-
-        if (nextBirthday < today) {
-          nextBirthday.setFullYear(today.getFullYear() + 1);
-        }
-
-        const daysUntilBirthday = Math.round(
-          (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-        );
-
-        return {
-          person,
-          daysUntilBirthday,
-        };
-      })
-      .sort((a, b) => a.daysUntilBirthday - b.daysUntilBirthday)
+      .map((person) => ({
+        person,
+        daysUntilBirthday: getDaysUntilBirthday(person.born)
+      }))
+      .filter(
+        (item): item is { person: Person; daysUntilBirthday: number } =>
+          item.daysUntilBirthday !== null
+      )
+      .sort(
+        (a, b) =>
+          a.daysUntilBirthday - b.daysUntilBirthday
+      )
       .slice(0, 10);
   }, [data.persons]);
 
@@ -54,25 +29,26 @@ const BirthdayPage = ({ onSelectPerson, data }: BirthdayPageProps) => {
     <main className="page-shell">
       <section className="card">
         <h2>Næstu afmæli</h2>
+
         <div className="table-wrapper">
           <table className="people-table">
             <thead>
               <tr>
-                <th>
-                  Nafn
-                </th>
-                <th>
-                  Fæðingardagur
-                </th>
-                <th>Fjöldi daga í afmæli</th>
+                <th>Nafn</th>
+                <th>Fæðingardagur</th>
+                <th>Dagar að afmæli</th>
               </tr>
             </thead>
+
             <tbody>
-              {upcomingBirthdays.map((birthday) => (
-                <tr key={birthday.person.name} onClick={() => onSelectPerson(birthday.person)} >
-                  <td>{birthday.person.name}</td>
-                  <td>{formatDate(birthday.person.born)}</td>
-                  <td>{birthday.daysUntilBirthday}</td>
+              {upcomingBirthdays.map(({ person, daysUntilBirthday }) => (
+                <tr
+                  key={person.name}
+                  onClick={() => onSelectPerson(person)}
+                >
+                  <td>{person.name}</td>
+                  <td>{formatDate(person.born)}</td>
+                  <td>{daysUntilBirthday}</td>
                 </tr>
               ))}
             </tbody>
@@ -83,4 +59,4 @@ const BirthdayPage = ({ onSelectPerson, data }: BirthdayPageProps) => {
   );
 };
 
-export default BirthdayPage;  
+export default BirthdayPage;

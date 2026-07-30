@@ -2,13 +2,19 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Family Data",
   "type": "object",
-  "required": ["patriot", "persons"],
+  "required": [
+    "patriot",
+    "persons"
+  ],
   "properties": {
     "patriot": {
       "type": "string"
     },
     "familyStories": {
-      "type": ["array", "null"],
+      "type": [
+        "array",
+        "null"
+      ],
       "items": {
         "type": "string"
       }
@@ -17,7 +23,16 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "born", "father", "mother", "spouse", "gender", "address", "phone"],
+        "required": [
+          "name",
+          "born",
+          "father",
+          "mother",
+          "spouse",
+          "gender",
+          "address",
+          "phone"
+        ],
         "properties": {
           "name": {
             "type": "string"
@@ -26,23 +41,44 @@
             "type": "string"
           },
           "father": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "mother": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "spouse": {
-            "type": ["string", "null"]
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
           },
           "gender": {
             "type": "string",
-            "enum": ["male", "female"]
+            "enum": [
+              "male",
+              "female"
+            ]
           },
           "address": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "phone": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "additionalProperties": false

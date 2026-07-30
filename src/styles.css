@@ -460,41 +460,6 @@ a {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.tree-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 0.4rem;
-  align-items: center;
-}
-
-.tree-search-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  min-width: min(280px, 100%);
-}
-
-.tree-search-label {
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #8ec5ff;
-}
-
-.tree-search {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  padding: 0.6rem 0.9rem;
-  background: rgba(255, 255, 255, 0.08);
-  color: inherit;
-}
-
-.tree-search:focus {
-  outline: 2px solid rgba(138, 92, 246, 0.4);
-  outline-offset: 2px;
-}
-
 .tree-board {
   display: flex;
   flex-direction: column;
