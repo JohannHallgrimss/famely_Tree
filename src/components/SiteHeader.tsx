@@ -17,12 +17,14 @@ const SiteHeader = ({
   const location = useLocation();
 
   const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setOpen(false);
+        setMobileOpen(false);
       }
     };
 
@@ -33,12 +35,25 @@ const SiteHeader = ({
   const selectFamily = (family: FamilyDataset) => {
     onFamilyDatasetChange(family);
     setOpen(false);
+    setMobileOpen(false);
   };
 
   return (
-    <header className="site-header">
-      <div className="brand">
-        🌳 Ættartré - {patriot}
+    <header className="site-header" ref={menuRef}>
+      <div className="header-left">
+        <div className="brand" title={patriot}>
+          🌳 Ættartré - {patriot}
+        </div>
+
+        <button
+          className="mobile-menu-toggle"
+          type="button"
+          aria-expanded={mobileOpen}
+          aria-label="Opna síðuvalmynd"
+          onClick={() => setMobileOpen((prev) => !prev)}
+        >
+          ☰
+        </button>
       </div>
 
       <nav className="top-nav">
@@ -69,9 +84,10 @@ const SiteHeader = ({
       </nav>
 
       <div className="header-actions">
-        <div className="family-dropdown" ref={menuRef}>
+        <div className="family-dropdown">
           <button
             className="family-button"
+            title={getFamilyName(currentFamilyDataset)}
             onClick={() => setOpen(!open)}
           >
             🌳 {getFamilyName(currentFamilyDataset)}
@@ -95,6 +111,41 @@ const SiteHeader = ({
           )}
         </div>
       </div>
+
+      {mobileOpen && (
+        <div className="mobile-nav-panel">
+          <div className="mobile-nav-links">
+            <Link
+              to="/"
+              className={location.pathname === "/" ? "active" : ""}
+              onClick={() => setMobileOpen(false)}
+            >
+              Heimasíða
+            </Link>
+            <Link
+              to="/afmæli"
+              className={location.pathname === "/afmæli" ? "active" : ""}
+              onClick={() => setMobileOpen(false)}
+            >
+              Næstu afmæli
+            </Link>
+            <Link
+              to="/ættarsaga"
+              className={location.pathname === "/ættarsaga" ? "active" : ""}
+              onClick={() => setMobileOpen(false)}
+            >
+              Ættarsaga
+            </Link>
+            <Link
+              to="/vidartre"
+              className={location.pathname === "/vidartre" ? "active" : ""}
+              onClick={() => setMobileOpen(false)}
+            >
+              Viðartré
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

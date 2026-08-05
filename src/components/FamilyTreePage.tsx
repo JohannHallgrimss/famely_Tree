@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import type { FamilyData, Person } from '../types';
 import { getRelatedPeopleNames } from '../utils/familyTreeUtils';
@@ -13,8 +13,42 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   const params = new URLSearchParams(location.search);
   const initialFocus = params.get('focus') ?? '';
   const [focusName, setFocusName] = useState<string>(initialFocus);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 700px)');
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+
+    if ('addEventListener' in mediaQuery) {
+      mediaQuery.addEventListener('change', updateIsMobile);
+      return () => mediaQuery.removeEventListener('change', updateIsMobile);
+    }
+
+    mediaQuery.addListener(updateIsMobile);
+    return () => mediaQuery.removeListener(updateIsMobile);
+  }, []);
 
   const people = data.persons;
+
+  const focusPerson = focusName
+    ? people.find((person) => person.name === focusName) ?? null
+    : null;
+
+  const relatedPersonNames = focusPerson
+    ? getRelatedPeopleNames(people, focusName)
+    : [];
+
+  const mobilePeople = focusPerson
+    ? [
+        focusPerson,
+        ...people.filter(
+          (person) =>
+            person.name !== focusName && relatedPersonNames.includes(person.name)
+        ),
+      ]
+    : people;
 
   const visiblePeople = useMemo(() => {
     if (!focusName) {
@@ -146,50 +180,95 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
         </div>
 
         <div className="tree-board tree-board-overview">
-          <div className="tree-graph-shell">
-            <svg
-              className="tree-lines"
-              width="1600"
-              height="900"
-              viewBox="0 0 1600 900"
-            >
-              {connectors.map((connector, index) => (
-                <line
-                  key={`${connector.fromX}-${connector.fromY}-${connector.toX}-${connector.toY}-${index}`}
-                  x1={connector.fromX}
-                  y1={connector.fromY}
-                  x2={connector.toX}
-                  y2={connector.toY}
-                  className="tree-connector"
-                />
-              ))}
-            </svg>
-
-            {generationRows.map(({ level, persons }) => (
-              <div key={level} className="tree-level">
-                {persons.map((person) => {
-                  const position = nodePositions.get(person.name);
-                  if (!position) {
-                    return null;
-                  }
-
-                  return (
-                    <button
-                      key={person.name}
-                      type="button"
-                      className={`tree-node ${focusName === person.name ? 'tree-node-active' : ''}`}
-                      style={{ left: `${position.x}px`, top: `${position.y}px` }}
-                      title={person.name}
-                      onClick={() => handleNodeSelect(person)}
-                    >
-                      <strong>{person.name}</strong>
-                      <span>{person.born || '—'}</span>
-                    </button>
-                  );
-                })}
+          {isMobile ? (
+            <div className="mobile-tree-shell">
+              <div className="mobile-tree-controls">
+                <label htmlFor="mobile-focus">Skoða:</label>
+                <select
+                  id="mobile-focus"
+                  value={focusName}
+                  onChange={(event) => setFocusName(event.target.value)}
+                >
+                  <option value="">Allar persónur</option>
+                  {people.map((person) => (
+                    <option key={person.name} value={person.name}>
+                      {person.name}
+                    </option>
+                  ))}
+                </select>
+                {focusName && (
+                  <button
+                    type="button"
+                    className="clear-focus"
+                    onClick={() => setFocusName('')}
+                  >
+                    Sýna allt
+                  </button>
+                )}
               </div>
-            ))}
-          </div>
+
+              <div className="mobile-tree-list">
+                {mobilePeople.map((person) => (
+                  <button
+                    key={person.name}
+                    type="button"
+                    className={`mobile-tree-item ${
+                      focusName === person.name ? 'tree-node-active' : ''
+                    }`}
+                    onClick={() => handleNodeSelect(person)}
+                  >
+                    <strong>{person.name}</strong>
+                    <span>{person.born || '—'}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="tree-graph-shell">
+              <svg
+                className="tree-lines"
+                width="1600"
+                height="900"
+                viewBox="0 0 1600 900"
+              >
+                {connectors.map((connector, index) => (
+                  <line
+                    key={`${connector.fromX}-${connector.fromY}-${connector.toX}-${connector.toY}-${index}`}
+                    x1={connector.fromX}
+                    y1={connector.fromY}
+                    x2={connector.toX}
+                    y2={connector.toY}
+                    className="tree-connector"
+                  />
+                ))}
+              </svg>
+
+              {generationRows.map(({ level, persons }) => (
+                <div key={level} className="tree-level">
+                  {persons.map((person) => {
+                    const position = nodePositions.get(person.name);
+                    if (!position) {
+                      return null;
+                    }
+
+                    return (
+                      <button
+                        key={person.name}
+                        type="button"
+                        className={`tree-node ${focusName === person.name ? 'tree-node-active' : ''}`}
+                        style={{ left: `${position.x}px`, top: `${position.y}px` }}
+                        title={person.name}
+                        onClick={() => handleNodeSelect(person)}
+                      >
+                        <strong>{person.name}</strong>
+                        <span>{person.born || '—'}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </main>
