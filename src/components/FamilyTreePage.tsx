@@ -15,20 +15,27 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   const [focusName, setFocusName] = useState<string>(initialFocus);
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 700px)');
-    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+ useEffect(() => {
+  const mediaQuery = window.matchMedia('(max-width: 700px)');
 
-    updateIsMobile();
+  const updateIsMobile = () => {
+    setIsMobile(mediaQuery.matches);
+  };
 
-    if ('addEventListener' in mediaQuery) {
-      mediaQuery.addEventListener('change', updateIsMobile);
-      return () => mediaQuery.removeEventListener('change', updateIsMobile);
-    }
+  updateIsMobile();
 
-    mediaQuery.addListener(updateIsMobile);
-    return () => mediaQuery.removeListener(updateIsMobile);
-  }, []);
+  mediaQuery.addEventListener(
+    'change',
+    updateIsMobile
+  );
+
+  return () => {
+    mediaQuery.removeEventListener(
+      'change',
+      updateIsMobile
+    );
+  };
+}, []);
 
   const people = data.persons;
 
