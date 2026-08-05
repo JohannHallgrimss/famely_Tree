@@ -1,17 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import type { FamilyDataset } from "../data/dataLoader";
+import { familyList, getFamilyName } from "../data/dataLoader";
 
 interface SiteHeaderProps {
   patriot: string;
   currentFamilyDataset: FamilyDataset;
   onFamilyDatasetChange: (familyDataset: FamilyDataset) => void;
 }
-
-const familyNames: Record<FamilyDataset, string> = {
-  hallgrimurJonsson: "Hallgrímur Jónsson",
-  valgerdurEinarsdottir: "Valgerður Einarsdóttir",
-};
 
 const SiteHeader = ({
   patriot,
@@ -78,21 +74,21 @@ const SiteHeader = ({
             className="family-button"
             onClick={() => setOpen(!open)}
           >
-            🌳 {familyNames[currentFamilyDataset]}
+            🌳 {getFamilyName(currentFamilyDataset)}
             <span className={open ? "arrow open" : "arrow"}>⌄</span>
           </button>
 
           {open && (
             <div className="family-menu">
-              {(Object.keys(familyNames) as FamilyDataset[]).map((family) => (
+              {familyList.map((family) => (
                 <button
-                  key={family}
+                  key={family.id}
                   className={`family-option ${
-                    family === currentFamilyDataset ? "active" : ""
+                    family.id === currentFamilyDataset ? "active" : ""
                   }`}
-                  onClick={() => selectFamily(family)}
+                  onClick={() => selectFamily(family.id)}
                 >
-                  {familyNames[family]}
+                  {family.name}
                 </button>
               ))}
             </div>

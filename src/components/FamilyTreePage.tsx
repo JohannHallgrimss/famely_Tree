@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import type { FamilyData, Person } from '../types';
-import { getRelatedPeopleNames } from './familyTreeUtils';
+import { getRelatedPeopleNames } from '../utils/familyTreeUtils';
 
 interface FamilyTreeProps {
   onSelectPerson: (person: Person) => void;
