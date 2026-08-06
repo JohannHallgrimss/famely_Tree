@@ -7,8 +7,7 @@
     "dev": "BROWSER=google-chrome vite --host 0.0.0.0 --open",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "npx gh-pages -d dist --repo https://github.com/JohannHallgrimss/famely_Tree.git --branch gh-pages --dotfiles"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "react": "^18.3.1",
