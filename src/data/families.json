@@ -1,12 +1,10 @@
 [
   {
     "id": "hallgrimurJonsson",
-    "name": "Hallgrímur Jónsson",
-    "path": "./families/hallgrimurJonsson.json"
+    "name": "Hallgrímur Jónsson"
   },
   {
     "id": "valgerdurEinarsdottir",
-    "name": "Valgerður Einarsdóttir",
-    "path": "./families/valgerdurEinarsdottir.json"
+    "name": "Valgerður Einarsdóttir"
   }
 ]

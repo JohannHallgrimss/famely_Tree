@@ -7,7 +7,8 @@
     "dev": "BROWSER=google-chrome vite --host 0.0.0.0 --open",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build"
+    "deploy": "npx gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -18,6 +19,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.1",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",
     "vitest": "^4.1.10"

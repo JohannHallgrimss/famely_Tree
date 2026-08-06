@@ -4,60 +4,122 @@ import familiesManifest from "./families.json";
 type FamilyManifestEntry = {
   id: string;
   name: string;
-  path: string;
 };
 
-export const familyList = familiesManifest as FamilyManifestEntry[];
+export const familyList =
+  familiesManifest as FamilyManifestEntry[];
 
-export type FamilyDataset = FamilyManifestEntry["id"];
+export type FamilyDataset =
+  FamilyManifestEntry["id"];
+
 
 const familyNames = Object.fromEntries(
-  familyList.map((entry) => [entry.id, entry.name])
+  familyList.map((entry) => [
+    entry.id,
+    entry.name
+  ])
 ) as Record<string, string>;
 
-const familyFileLoaders = import.meta.glob<{
-  default: FamilyData;
-}>("./families/*.json");
 
-const files = familyList.reduce((acc, entry) => {
-  const loader = familyFileLoaders[entry.path];
+// Vite pakkar þessum json skrám inn í build
+const familyFiles =
+  import.meta.glob<FamilyData>(
+    "./families/*.json",
+    {
+      eager: true,
+      import: "default"
+    }
+  );
 
-  if (!loader) {
-    throw new Error(`Missing loader for family data path: ${entry.path}`);
-  }
 
-  acc[entry.id] = loader;
-  return acc;
-}, {} as Record<string, () => Promise<{ default: FamilyData }>>);
+const files =
+  familyList.reduce(
+    (
+      acc,
+      entry
+    ) => {
 
-let currentFamilyDataset: FamilyDataset = familyList[0]?.id ?? "hallgrimurJonsson";
+      const key =
+        `./families/${entry.id}.json`;
 
-export function setFamilyDataset(lang: FamilyDataset) {
-  if (files[lang]) {
-    currentFamilyDataset = lang;
+      const familyData =
+        familyFiles[key];
+
+
+      if (!familyData) {
+        console.error(
+          "Available family files:",
+          Object.keys(familyFiles)
+        );
+
+        throw new Error(
+          `Missing family file: ${key}`
+        );
+      }
+
+
+      acc[entry.id] = familyData;
+
+      return acc;
+
+    },
+    {} as Record<string, FamilyData>
+  );
+
+
+let currentFamilyDataset:
+  FamilyDataset =
+    familyList[0]?.id ??
+    "hallgrimurJonsson";
+
+
+export function setFamilyDataset(
+  dataset: FamilyDataset
+) {
+  if (files[dataset]) {
+    currentFamilyDataset = dataset;
   } else {
-    console.warn(`Unknown family dataset: ${lang}`);
+    console.warn(
+      `Unknown family dataset: ${dataset}`
+    );
   }
 }
+
 
 export function getFamilyDataset() {
   return currentFamilyDataset;
 }
 
+
 export function getFamilyList() {
   return familyList;
 }
 
-export function getFamilyName(familyDataset: FamilyDataset) {
-  return familyNames[familyDataset] ?? familyDataset;
+
+export function getFamilyName(
+  familyDataset: FamilyDataset
+) {
+  return (
+    familyNames[familyDataset] ??
+    familyDataset
+  );
 }
 
-export async function loadData(lang: FamilyDataset = currentFamilyDataset) {
-  const loader = files[lang];
-  if (!loader) {
-    throw new Error(`Family dataset loader not found: ${lang}`);
+
+export async function loadData(
+  dataset: FamilyDataset = currentFamilyDataset
+): Promise<FamilyData> {
+
+  const familyData =
+    files[dataset];
+
+
+  if (!familyData) {
+    throw new Error(
+      `Family dataset not found: ${dataset}`
+    );
   }
 
-  const module = await loader();
-  return module.default as FamilyData;
+
+  return familyData;
 }
