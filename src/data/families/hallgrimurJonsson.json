@@ -1,0 +1,212 @@
+{
+  "patriot": "Hallgrímur Jónsson",
+  "familyStories": [
+    "Þetta er fyrsta línan.",
+    "Þetta er önnur línan.",
+    "Þetta er þriðja línan.",
+    "Fjölskyldu tré Hallgríms Jónssonar og Valgerðar Einarsdóttur, hægt verður að skipta yfir í ættatré Valgerðar seinna meir."
+  ],
+  "familyStories2": [],
+  "persons": [
+    {
+      "name": "Hallgrímur Jónsson",
+      "born": "09.11.1919",
+      "father": "",
+      "mother": "",
+      "spouse": ["Valgerður Einarsdóttir", "Þórunn Rafnar"],
+      "gender": "male",
+      "address": "Eyrarbraut 1",
+      "phone": "555-2001"
+    },
+    {
+      "name": "Hrefna Hallgrímsdóttir",
+      "born": "22.05.1948",
+      "father": "Hallgrímur Jónsson",
+      "mother": "Þórunn Rafnar",
+      "spouse": [],
+      "gender": "female",
+      "address": "Eyrarbraut 1",
+      "phone": "555-2002"
+    },
+    {
+      "name": "Kristján Hallgrímsson",
+      "born": "17.01.1951",
+      "father": "Hallgrímur Jónsson",
+      "mother": "Þórunn Rafnar",
+      "spouse": [],
+      "gender": "male",
+      "address": "Álfheimar 12",
+      "phone": "555-1001"
+    },
+    {
+      "name": "Stefán Hallgrímsson",
+      "born": "30.08.1954",
+      "father": "Hallgrímur Jónsson",
+      "mother": "Þórunn Rafnar",
+      "spouse": [],
+      "gender": "male",
+      "address": "Bakkabraut 7",
+      "phone": "555-2003"
+    },
+    {
+      "name": "Rakel Hallgrímsdóttir",
+      "born": "06.04.1957",
+      "father": "Hallgrímur Jónsson",
+      "mother": "Þórunn Rafnar",
+      "spouse": [],
+      "gender": "female",
+      "address": "Bakkabraut 7",
+      "phone": "555-2004"
+    },
+    {
+      "name": "Guðný Hallgrímsdóttir",
+      "born": "18.12.1960",
+      "father": "Hallgrímur Jónsson",
+      "mother": "Þórunn Rafnar",
+      "spouse": [],
+      "gender": "female",
+      "address": "Álfheimar 12",
+      "phone": "555-1002"
+    },
+    {
+      "name": "Birkir Einarsson",
+      "born": "14.09.1975",
+      "father": "",
+      "mother": "Hrefna Hallgrímsdóttir",
+      "spouse": ["Einar"],
+      "gender": "male",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1003"
+    },
+    {
+      "name": "Lilja Einarsdóttir",
+      "born": "28.02.1979",
+      "father": "Einar",
+      "mother": "Hrefna Hallgrímsdóttir",
+      "spouse": ["Hallgrímur Jónsson"],
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1004"
+    },
+    {
+      "name": "Bryndís Einarsdóttir",
+      "born": "07.07.1982",
+      "father": "Einar",
+      "mother": "Hrefna Hallgrímsdóttir",
+      "spouse": [],
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1006"
+    },
+    {
+      "name": "Tómas Samúelsson",
+      "born": "13.03.1986",
+      "father": "Sammi",
+      "mother": "Kristján Hallgrímsson",
+      "spouse": [],
+      "gender": "male",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1007"
+    },
+    {
+      "name": "Sunna Samúelsdóttir",
+      "born": "21.10.1989",
+      "father": "Sammi",
+      "mother": "Kristján Hallgrímsson",
+      "spouse": [],
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1008"
+    },
+    {
+      "name": "Viktor Jóhannesson",
+      "born": "02.06.1990",
+      "father": "Jóhannes",
+      "mother": "Stefán Hallgrímsson",
+      "spouse": [],
+      "gender": "male",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1009"
+    },
+    {
+      "name": "Katrín Jóhannsdóttir",
+      "born": "15.01.1993",
+      "father": "Jóhannes",
+      "mother": "Stefán Hallgrímsson",
+      "spouse": [],
+      "gender": "female",
+      "address": "Hafnarbraut 8",
+      "phone": "555-1010"
+    },
+    {
+      "name": "Arnar Kristjánsson",
+      "born": "24.08.2004",
+      "father": "Rakel Hallgrímsdóttir",
+      "mother": "Asta",
+      "spouse": [],
+      "gender": "male",
+      "address": "Dalsbraut 3",
+      "phone": "555-1011"
+    },
+    {
+      "name": "Eva Kristjánsdóttir",
+      "born": "19.05.1981",
+      "father": "Rakel Hallgrímsdóttir",
+      "mother": "Asta",
+      "spouse": ["Árni Gunnarsson"],
+      "gender": "female",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1012"
+    },
+    {
+      "name": "Haukur Sunnuson",
+      "born": "11.04.2012",
+      "father": "Sunna Samúelsdóttir",
+      "mother": "",
+      "spouse": [],
+      "gender": "male",
+      "address": "Brekkuvegi 5",
+      "phone": "555-2005"
+    },
+    {
+      "name": "Embla Sunnudóttir",
+      "born": "03.09.2014",
+      "father": "",
+      "mother": "Sunna Samúelsdóttir",
+      "spouse": [],
+      "gender": "female",
+      "address": "Brekkuvegi 5",
+      "phone": "555-2006"
+    },
+    {
+      "name": "Þórir Gunnarsson",
+      "born": "26.11.1996",
+      "father": "Gunnar Árnason",
+      "mother": "Katrín Jóhannsdóttir",
+      "spouse": ["Svanhildur Þórsdóttir"],
+      "gender": "male",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1013"
+    },
+    {
+      "name": "Íris Árnadóttir",
+      "born": "12.02.2001",
+      "father": "Árni Gunnarsson",
+      "mother": "Viktor Jóhannesson",
+      "spouse": [],
+      "gender": "female",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1014"
+    },
+    {
+      "name": "Snorri Árnason",
+      "born": "08.06.2008",
+      "father": "Árni Gunnarsson",
+      "mother": "Þórir Gunnarsson",
+      "spouse": [],
+      "gender": "male",
+      "address": "Brekkuvegi 5",
+      "phone": "555-1015"
+    }
+  ]
+}

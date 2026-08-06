@@ -6,9 +6,9 @@ dist/
 node_modules/
 
 # Family data - geyma möppuna en ekki gögnin
-src/data/families/*
-!src/data/families/.gitkeep
+#src/data/families/*
+#!src/data/families/.gitkeep
 
 # Images - geyma möppuna en ekki myndirnar
-public/images/*
-!public/images/.gitkeep
+#public/images/*
+#!public/images/.gitkeep
