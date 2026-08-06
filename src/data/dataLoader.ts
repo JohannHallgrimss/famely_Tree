@@ -38,7 +38,7 @@ const files =
       acc,
       entry
     ) => {
-
+      console.debug("Loading family data for:", entry.id);
       const key =
         `./families/${entry.id}.json`;
 
