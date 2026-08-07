@@ -223,9 +223,9 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   const nodePositions = useMemo(() => {
     const positions = new Map<string, { x: number; y: number }>();
 
-    const COLUMN_WIDTH = 220;
-    const ROW_HEIGHT = 110;
-    const TOP_Y = 60;
+    const COLUMN_WIDTH = 190;
+    const ROW_HEIGHT = 75;
+    const TOP_Y = 40;
 
     const maxPeopleInGeneration = Math.max(
       ...generationRows.map(({ persons }) => persons.length),
