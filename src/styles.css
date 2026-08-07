@@ -518,10 +518,10 @@ a {
 .tree-board {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  padding: 0.8rem;
-  border-radius: 20px;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+  padding: 0.6rem;
+  border-radius: 18px;
   background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
 }
 
@@ -608,11 +608,11 @@ a {
 }
 
 .tree-connector {
-  stroke: rgba(255, 255, 255, 0.45);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-dasharray: 6 6;
-  animation: treeDash 2.2s linear infinite;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2.2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
 }
 
 .tree-level {

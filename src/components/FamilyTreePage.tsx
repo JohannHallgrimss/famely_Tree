@@ -66,6 +66,38 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
     return people.filter((person) => relatedNames.includes(person.name));
   }, [focusName, people]);
 
+  const parseBirthTimestamp = (born: string) => {
+    const parts = born.split('.').map((part) => part.trim());
+    if (parts.length < 3) {
+      return Number.MAX_SAFE_INTEGER;
+    }
+
+    const day = Number.parseInt(parts[0], 10);
+    const month = Number.parseInt(parts[1], 10);
+    const year = Number.parseInt(parts[2], 10);
+
+    if (!Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year)) {
+      return Number.MAX_SAFE_INTEGER;
+    }
+
+    const date = new Date(year, month - 1, day);
+    return Number.isNaN(date.getTime()) ? Number.MAX_SAFE_INTEGER : date.getTime();
+  };
+
+  const getBirthTimestamp = (person: Person) => parseBirthTimestamp(person.born);
+
+  const getParentBirthTimestamp = (person: Person) => {
+    const parentNames = [person.father, person.mother].filter(Boolean) as string[];
+    const parentTimestamps = parentNames
+      .map((name) => people.find((p) => p.name === name))
+      .filter((parent): parent is Person => Boolean(parent))
+      .map(getBirthTimestamp);
+
+    return parentTimestamps.length > 0
+      ? Math.min(...parentTimestamps)
+      : Number.MAX_SAFE_INTEGER;
+  };
+
   const generationRows = useMemo(() => {
     const getGeneration = (person: Person, seen = new Set<string>()): number => {
       if (seen.has(person.name)) {
@@ -93,49 +125,234 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
       generationMap.set(level, existing);
     });
 
+
+    const getSiblingGroups = (persons: Person[]) => {
+      const graph = new Map<string, Set<string>>();
+
+      persons.forEach((person) => {
+        graph.set(person.name, new Set<string>());
+      });
+
+      persons.forEach((person) => {
+        persons.forEach((other) => {
+          if (person.name === other.name) return;
+          const parentNames = new Set(
+            [person.father, person.mother].filter(Boolean) as string[]
+          );
+          const otherParentNames = new Set(
+            [other.father, other.mother].filter(Boolean) as string[]
+          );
+
+          const sharedParent = [...parentNames].some((name) =>
+            otherParentNames.has(name)
+          );
+
+          if (sharedParent) {
+            graph.get(person.name)?.add(other.name);
+            graph.get(other.name)?.add(person.name);
+          }
+        });
+      });
+
+      const groups: Person[][] = [];
+      const seen = new Set<string>();
+
+      persons.forEach((person) => {
+        if (seen.has(person.name)) return;
+
+        const queue = [person.name];
+        const component: string[] = [];
+        seen.add(person.name);
+
+        while (queue.length) {
+          const current = queue.shift()!;
+          component.push(current);
+          graph.get(current)?.forEach((neighbor) => {
+            if (!seen.has(neighbor)) {
+              seen.add(neighbor);
+              queue.push(neighbor);
+            }
+          });
+        }
+
+        groups.push(
+          component
+            .map((name) => persons.find((person) => person.name === name)!)
+            .sort((a, b) => {
+              const aBirth = getBirthTimestamp(a);
+              const bBirth = getBirthTimestamp(b);
+              if (aBirth !== bBirth) {
+                return aBirth - bBirth;
+              }
+              return a.name.localeCompare(b.name);
+            })
+        );
+      });
+
+      return groups.sort((a, b) => {
+        const aParentYear = Math.min(...a.map(getParentBirthTimestamp));
+        const bParentYear = Math.min(...b.map(getParentBirthTimestamp));
+        if (aParentYear !== bParentYear) {
+          return aParentYear - bParentYear;
+        }
+
+        const aChildYear = Math.min(...a.map(getBirthTimestamp));
+        const bChildYear = Math.min(...b.map(getBirthTimestamp));
+        if (aChildYear !== bChildYear) {
+          return aChildYear - bChildYear;
+        }
+
+        return a[0].name.localeCompare(b[0].name);
+      });
+    };
+
     return Array.from(generationMap.entries())
       .sort(([a], [b]) => a - b)
-      .map(([level, persons]) => ({
-        level,
-        persons: persons.sort((a, b) => a.name.localeCompare(b.name))
-      }));
+      .map(([level, persons]) => {
+        const siblingGroups = getSiblingGroups(persons);
+        return {
+          level,
+          persons: siblingGroups.flat()
+        };
+      });
   }, [people, visiblePeople]);
+
+  const NODE_WIDTH = 140;
+  const NODE_HEIGHT = 60;
 
   const nodePositions = useMemo(() => {
     const positions = new Map<string, { x: number; y: number }>();
 
     const COLUMN_WIDTH = 220;
     const ROW_HEIGHT = 110;
+    const TOP_Y = 60;
 
     const maxPeopleInGeneration = Math.max(
       ...generationRows.map(({ persons }) => persons.length),
       1
     );
 
+    const getSiblingGroups = (persons: Person[]) => {
+      const graph = new Map<string, Set<string>>();
+
+      persons.forEach((person) => {
+        graph.set(person.name, new Set<string>());
+      });
+
+      persons.forEach((person) => {
+        persons.forEach((other) => {
+          if (person.name === other.name) return;
+          const parentNames = new Set(
+            [person.father, person.mother].filter(Boolean) as string[]
+          );
+          const otherParentNames = new Set(
+            [other.father, other.mother].filter(Boolean) as string[]
+          );
+
+          const sharedParent = [...parentNames].some((name) =>
+            otherParentNames.has(name)
+          );
+
+          if (sharedParent) {
+            graph.get(person.name)?.add(other.name);
+            graph.get(other.name)?.add(person.name);
+          }
+        });
+      });
+
+      const groups: Person[][] = [];
+      const seen = new Set<string>();
+
+      persons.forEach((person) => {
+        if (seen.has(person.name)) return;
+
+        const queue = [person.name];
+        const component: string[] = [];
+        seen.add(person.name);
+
+        while (queue.length) {
+          const current = queue.shift()!;
+          component.push(current);
+          graph.get(current)?.forEach((neighbor) => {
+            if (!seen.has(neighbor)) {
+              seen.add(neighbor);
+              queue.push(neighbor);
+            }
+          });
+        }
+
+        groups.push(
+          component
+            .map((name) => persons.find((person) => person.name === name)!)
+            .sort((a, b) => {
+              const aBirth = getBirthTimestamp(a);
+              const bBirth = getBirthTimestamp(b);
+              if (aBirth !== bBirth) {
+                return aBirth - bBirth;
+              }
+              return a.name.localeCompare(b.name);
+            })
+        );
+      });
+
+      return groups.sort((a, b) => {
+        const aYear = Math.min(...a.map(getBirthTimestamp));
+        const bYear = Math.min(...b.map(getBirthTimestamp));
+        return aYear - bYear;
+      });
+    };
+
     generationRows.forEach(({ level, persons }) => {
       const generationHeight = persons.length * ROW_HEIGHT;
       const totalHeight = maxPeopleInGeneration * ROW_HEIGHT;
-
-      // miðjar kynslóðina lóðrétt
       const verticalOffset = (totalHeight - generationHeight) / 2;
+      const baseY = TOP_Y + verticalOffset;
 
-      persons.forEach((person, index) => {
-        positions.set(person.name, {
-          // kynslóðir fara frá vinstri til hægri
-          x: 80 + level * COLUMN_WIDTH,
+      const siblingGroups = getSiblingGroups(persons);
+      const sortedGroups = siblingGroups.sort((a, b) => {
+        const aParentYs = a
+          .flatMap((person) => [person.father, person.mother].filter(Boolean) as string[])
+          .map((parentName) => positions.get(parentName))
+          .filter((parent): parent is { x: number; y: number } => Boolean(parent))
+          .map((parent) => parent.y);
+        const bParentYs = b
+          .flatMap((person) => [person.father, person.mother].filter(Boolean) as string[])
+          .map((parentName) => positions.get(parentName))
+          .filter((parent): parent is { x: number; y: number } => Boolean(parent))
+          .map((parent) => parent.y);
 
-          // einstaklingar innan kynslóðar staflast niður
-          // en kynslóðin sjálf er miðjuð
-          y: 60 + verticalOffset + index * ROW_HEIGHT
+        const aParentY = aParentYs.length > 0 ? Math.min(...aParentYs) : Number.MAX_SAFE_INTEGER;
+        const bParentY = bParentYs.length > 0 ? Math.min(...bParentYs) : Number.MAX_SAFE_INTEGER;
+
+        if (aParentY !== bParentY) {
+          return aParentY - bParentY;
+        }
+
+        const aChildYear = Math.min(...a.map(getBirthTimestamp));
+        const bChildYear = Math.min(...b.map(getBirthTimestamp));
+        if (aChildYear !== bChildYear) {
+          return aChildYear - bChildYear;
+        }
+
+        return a[0].name.localeCompare(b[0].name);
+      });
+
+      let currentY = baseY;
+
+      sortedGroups.forEach((group) => {
+        const groupHeight = group.length * ROW_HEIGHT;
+        group.forEach((person, index) => {
+          positions.set(person.name, {
+            x: 80 + level * COLUMN_WIDTH,
+            y: currentY + index * ROW_HEIGHT
+          });
         });
+        currentY += groupHeight;
       });
     });
 
     return positions;
   }, [generationRows]);
-
-  const NODE_WIDTH = 140;
-  const NODE_HEIGHT = 60;
 
   const connectors = useMemo(() => {
     const lines: Array<{

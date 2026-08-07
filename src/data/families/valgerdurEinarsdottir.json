@@ -5,7 +5,7 @@
   "persons": [
     {
       "name": "Valgerður Einarsdóttir",
-      "born": "14.02.1920",
+      "born": "14.02.1898",
       "father": "",
       "mother": "",
       "spouse": ["Þórunn Rafnar"],
@@ -65,7 +65,7 @@
     },
     {
       "name": "Magnús Einarsson",
-      "born": "03.02.1978",
+      "born": "03.02.1982",
       "father": "",
       "mother": "Sigríður Valgeirsdóttir",
       "spouse": ["Einar"],
@@ -125,7 +125,7 @@
     },
     {
       "name": "María Jóhannsdóttir",
-      "born": "30.09.1994",
+      "born": "30.09.1954",
       "father": "Jóhannes",
       "mother": "Jóhann Valgeirsson",
       "spouse": [],
@@ -155,7 +155,7 @@
     },
     {
       "name": "Sigurður Elínarson",
-      "born": "20.05.1950",
+      "born": "20.05.2010",
       "father": "Elín Samúelsdóttir",
       "mother": "",
       "spouse": [],
@@ -165,7 +165,7 @@
     },
     {
       "name": "Sólveig Elínardóttir",
-      "born": "15.08.1951",
+      "born": "15.08.2012",
       "father": "",
       "mother": "Elín Samúelsdóttir",
       "spouse": [],
@@ -185,7 +185,7 @@
     },
     {
       "name": "Birna Árnadóttir",
-      "born": "09.06.2003",
+      "born": "09.06.2013",
       "father": "Árni Gunnarsson",
       "mother": "Kjartan Jóhannesson",
       "spouse": [],
