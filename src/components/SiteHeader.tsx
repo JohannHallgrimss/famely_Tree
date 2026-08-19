@@ -99,9 +99,8 @@ const SiteHeader = ({
               {familyList.map((family) => (
                 <button
                   key={family.id}
-                  className={`family-option ${
-                    family.id === currentFamilyDataset ? "active" : ""
-                  }`}
+                  className={`family-option ${family.id === currentFamilyDataset ? "active" : ""
+                    }`}
                   onClick={() => selectFamily(family.id)}
                 >
                   {family.name}
@@ -117,28 +116,32 @@ const SiteHeader = ({
           <div className="mobile-nav-links">
             <Link
               to="/"
-              className={location.pathname === "/" ? "active" : ""}
+              className={`mobile-submenu ${location.pathname === "/afmæli" ? "active" : ""
+                }`}
               onClick={() => setMobileOpen(false)}
             >
               Heimasíða
             </Link>
             <Link
               to="/afmæli"
-              className={location.pathname === "/afmæli" ? "active" : ""}
+              className={`mobile-submenu ${location.pathname === "/afmæli" ? "active" : ""
+                }`}
               onClick={() => setMobileOpen(false)}
             >
               Næstu afmæli
             </Link>
             <Link
               to="/ættarsaga"
-              className={location.pathname === "/ættarsaga" ? "active" : ""}
+              className={`mobile-submenu ${location.pathname === "/ættarsaga" ? "active" : ""
+                }`}
               onClick={() => setMobileOpen(false)}
             >
               Ættarsaga
             </Link>
             <Link
               to="/vidartre"
-              className={location.pathname === "/vidartre" ? "active" : ""}
+              className={`mobile-submenu ${location.pathname === "/vidartre" ? "active" : ""
+                }`}
               onClick={() => setMobileOpen(false)}
             >
               Viðartré
