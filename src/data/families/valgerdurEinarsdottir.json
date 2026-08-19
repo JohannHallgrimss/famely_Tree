@@ -13,7 +13,7 @@
       "born": "29.11.1940",
       "father": "Jón Sigurður Helgason",
       "mother": "Hanna Alvilda Ingileif Helgason",
-      "spouse": ["Valgerður Einarsdóttir"],
+      "spouse": ["Valgerður Einarsdóttir", "Þórunn Stefánsdóttir Rafnar"],
       "gender": "male",
       "address": "Unnargrund 10",
       "phone": null
@@ -180,7 +180,7 @@
     },
     {
       "name": "Sigurður Gauti Samúelsson",
-      "born": "27.07.1994",
+      "born": "26.07.1994",
       "father": "Samúel Sigurðsson",
       "mother": "Hanna Magnea Hallgrímsdóttir",
       "spouse": null,
@@ -190,7 +190,7 @@
     },
     {
       "name": "Brynhildur Helga Samúelsdóttir",
-      "born": "25.03.1998",
+      "born": "25.03.1997",
       "father": "Samúel Sigurðsson",
       "mother": "Hanna Magnea Hallgrímsdóttir",
       "spouse": ["Geir Jónsson"],
@@ -349,7 +349,7 @@
       "phone": null
     },
     {
-      "name": "Rírik Iilmari Þorsteinsson Rafnar",
+      "name": "Rúrik Ilmari Þorsteinsson Rafnar",
       "born": "30.09.2022",
       "father": "Þorsteinn Ingi Stefánsson",
       "mother": "Katariina Maria Rafnar",

@@ -66,7 +66,7 @@ const PeopleTable = ({ people, sortKey, sortDirection, onSort, onSelectPerson }:
 
   return (
     <div className="table-wrapper">
-      <table className="people-table">
+      <table className="people-table people-tableHome">
         <thead>
           <tr>
             <th>

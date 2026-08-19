@@ -31,7 +31,7 @@ const BirthdayPage = ({ onSelectPerson, data }: BirthdayPageProps) => {
         <h2>Næstu afmæli</h2>
 
         <div className="table-wrapper">
-          <table className="people-table">
+          <table className="people-table people-tableBD">
             <thead>
               <tr>
                 <th>Nafn</th>

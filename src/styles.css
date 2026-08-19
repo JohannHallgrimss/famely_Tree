@@ -830,4 +830,60 @@ a {
   .tree-focus-card {
     width: 100%;
   }
+
+  /* Mobile birthdays */
+  .people-table thead {
+    display: none;
+  }
+
+  .people-table,
+  .people-table tbody,
+  .people-table tr,
+  .people-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .people-table tr {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .people-table td {
+    border: none;
+    padding: 2px 0;
+  }
+
+  /* Nafnið */
+  .people-table td:nth-child(1) {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  /* Fæðingardagur */
+  .people-table td:nth-child(2) {
+    display: inline;
+  }
+
+  /* Dagar að afmæli */
+  .people-tableBD td:nth-child(3) {
+    display: inline;
+    margin-left: 16px;
+  }
+
+  .people-tableBD td:nth-child(3)::before {
+    content: "Afmæli eftir: ";
+  }
+    /* Dagar að afmæli */
+  .people-table td:nth-child(3) {
+    display: inline;
+    margin-left: 16px;
+  }
+
+  .people-tableHome td:nth-child(3)::before {
+    content: "Aldur: ";
+  }
+  .people-tableHome td:nth-child(4)::before {
+    content: "Afmæli eftir: ";
+  }
 }
