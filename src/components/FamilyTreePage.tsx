@@ -58,12 +58,34 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
     : people;
 
   const visiblePeople = useMemo(() => {
-    if (!focusName) {
+    if (focusName) {
+      const relatedNames = getRelatedPeopleNames(people, focusName);
+      return people.filter((person) => relatedNames.includes(person.name));
+    }
+
+    // When no focus is set, show only descendants of the family 'patriot' (root ancestor)
+    const root = data.patriot?.trim() ?? '';
+    if (!root) {
       return people;
     }
 
-    const relatedNames = getRelatedPeopleNames(people, focusName);
-    return people.filter((person) => relatedNames.includes(person.name));
+    const descendants = new Set<string>();
+    const q: string[] = [];
+    q.push(root);
+
+    while (q.length) {
+      const cur = q.shift()!;
+      if (descendants.has(cur)) continue;
+      descendants.add(cur);
+
+      people.forEach((p) => {
+        if (p.father === cur || p.mother === cur) {
+          q.push(p.name);
+        }
+      });
+    }
+
+    return people.filter((p) => descendants.has(p.name));
   }, [focusName, people]);
 
   const parseBirthTimestamp = (born: string) => {
@@ -99,6 +121,31 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   };
 
   const generationRows = useMemo(() => {
+    const normalizeName = (input?: string | null) => {
+      if (!input) return '';
+      // Normalize, remove combining marks, zero-width and non-letter/number characters,
+      // collapse spaces and lowercase.
+      let s = input.normalize('NFD');
+      // remove combining diacritics
+      s = s.replace(/[\u0300-\u036f]/g, '');
+      // remove common invisible/zero-width and control chars
+      s = s.replace(/[\u200B-\u200F\uFEFF\u00AD]/g, '');
+      // replace any character that is not a letter, number or whitespace with space
+      // using Unicode property escapes
+      try {
+        s = s.replace(/[^\p{L}\p{N}\s]+/gu, ' ');
+      } catch (e) {
+        // older JS runtimes may not support \p escapes; fall back to basic ascii cleanup
+        s = s.replace(/[^\w\s]+/g, ' ');
+      }
+      s = s.replace(/\s+/g, ' ').trim().toLowerCase();
+      return s;
+    };
+
+    const nameMap = new Map<string, Person>(
+      people.map((p) => [normalizeName(p.name), p])
+    );
+
     const getGeneration = (person: Person, seen = new Set<string>()): number => {
       if (seen.has(person.name)) {
         return 0;
@@ -110,11 +157,11 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
       }
 
       const parents = parentNames
-        .map((name) => people.find((entry) => entry.name === name))
+        .map((name) => nameMap.get(normalizeName(name)))
         .filter(Boolean) as Person[];
 
       seen.add(person.name);
-      return 1 + Math.max(...parents.map((parent) => getGeneration(parent, seen)));
+      return parents.length > 0 ? 1 + Math.max(...parents.map((parent) => getGeneration(parent, seen))) : 0;
     };
 
     const generationMap = new Map<number, Person[]>();
@@ -137,10 +184,16 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
         persons.forEach((other) => {
           if (person.name === other.name) return;
           const parentNames = new Set(
-            [person.father, person.mother].filter(Boolean) as string[]
+            [person.father, person.mother]
+              .filter(Boolean)
+              .map((n) => normalizeName(n as string))
+              .filter((n) => nameMap.has(n))
           );
           const otherParentNames = new Set(
-            [other.father, other.mother].filter(Boolean) as string[]
+            [other.father, other.mother]
+              .filter(Boolean)
+              .map((n) => normalizeName(n as string))
+              .filter((n) => nameMap.has(n))
           );
 
           const sharedParent = [...parentNames].some((name) =>
@@ -364,23 +417,20 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
 
     visiblePeople.forEach((person) => {
       const child = nodePositions.get(person.name);
-
       if (!child) return;
 
       [person.father, person.mother]
         .filter(Boolean)
         .forEach((parentName) => {
           const parent = nodePositions.get(parentName!);
-
           if (!parent) return;
 
-          lines.push({
-            fromX: parent.x + NODE_WIDTH,
-            fromY: parent.y + NODE_HEIGHT / 2,
+          const startX = parent.x + NODE_WIDTH;
+          const startY = parent.y + NODE_HEIGHT / 2;
+          const endX = child.x;
+          const endY = child.y + NODE_HEIGHT / 2;
 
-            toX: child.x,
-            toY: child.y + NODE_HEIGHT / 2
-          });
+          lines.push({ fromX: startX, fromY: startY, toX: endX, toY: endY });
         });
     });
 
@@ -388,7 +438,8 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   }, [nodePositions, visiblePeople]);
 
   const handleNodeSelect = (person: Person) => {
-    setFocusName(person.name);
+    // Do not change `focusName` when opening the person modal —
+    // clicking a node should not alter which people are visible.
     onSelectPerson(person);
   };
 

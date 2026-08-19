@@ -1,5 +1,5 @@
 {
-  "patriot": "Hallgrímur Jónsson",
+  "patriot": "Hallgrímur Gunnar Jónsson",
   "familyStories": [
     "Þetta er fyrsta línan.",
     "Þetta er önnur línan.",
@@ -9,204 +9,454 @@
   "familyStories2": [],
   "persons": [
     {
-      "name": "Hallgrímur Jónsson",
-      "born": "09.11.1919",
-      "father": "",
-      "mother": "",
-      "spouse": ["Valgerður Einarsdóttir", "Þórunn Rafnar"],
+      "name": "Hallgrímur Gunnar Jónsson",
+      "born": "29.11.1940",
+      "father": "Jón Sigurður Helgason",
+      "mother": "Hanna Alvilda Ingileif Helgason",
+      "spouse": ["Valgerður Einarsdóttir", "Þórunn Stefánsdóttir Rafnar"],
       "gender": "male",
-      "address": "Eyrarbraut 1",
-      "phone": "555-2001"
+      "address": "Unnargrund 10",
+      "phone": null
     },
     {
-      "name": "Hrefna Hallgrímsdóttir",
-      "born": "22.05.1948",
-      "father": "Hallgrímur Jónsson",
-      "mother": "Þórunn Rafnar",
-      "spouse": [],
-      "gender": "female",
-      "address": "Eyrarbraut 1",
-      "phone": "555-2002"
-    },
-    {
-      "name": "Kristján Hallgrímsson",
-      "born": "17.01.1951",
-      "father": "Hallgrímur Jónsson",
-      "mother": "Þórunn Rafnar",
-      "spouse": [],
-      "gender": "male",
-      "address": "Álfheimar 12",
-      "phone": "555-1001"
-    },
-    {
-      "name": "Stefán Hallgrímsson",
-      "born": "30.08.1954",
-      "father": "Hallgrímur Jónsson",
-      "mother": "Þórunn Rafnar",
-      "spouse": [],
-      "gender": "male",
-      "address": "Bakkabraut 7",
-      "phone": "555-2003"
-    },
-    {
-      "name": "Rakel Hallgrímsdóttir",
-      "born": "06.04.1957",
-      "father": "Hallgrímur Jónsson",
-      "mother": "Þórunn Rafnar",
-      "spouse": [],
-      "gender": "female",
-      "address": "Bakkabraut 7",
-      "phone": "555-2004"
-    },
-    {
-      "name": "Guðný Hallgrímsdóttir",
-      "born": "18.12.1960",
-      "father": "Hallgrímur Jónsson",
-      "mother": "Þórunn Rafnar",
-      "spouse": [],
-      "gender": "female",
-      "address": "Álfheimar 12",
-      "phone": "555-1002"
-    },
-    {
-      "name": "Birkir Einarsson",
-      "born": "14.09.1975",
-      "father": "",
-      "mother": "Hrefna Hallgrímsdóttir",
-      "spouse": ["Einar"],
-      "gender": "male",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1003"
-    },
-    {
-      "name": "Lilja Einarsdóttir",
-      "born": "28.02.1979",
+      "name": "Valgerður Einarsdóttir",
+      "born": "28.02.1949",
       "father": "Einar",
-      "mother": "Hrefna Hallgrímsdóttir",
-      "spouse": ["Hallgrímur Jónsson"],
+      "mother": null,
+      "spouse": ["Hallgrímur Gunnar Jónsson"],
       "gender": "female",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1004"
+      "address": "Unnargrund 10",
+      "phone": null
     },
     {
-      "name": "Bryndís Einarsdóttir",
-      "born": "07.07.1982",
-      "father": "Einar",
-      "mother": "Hrefna Hallgrímsdóttir",
-      "spouse": [],
+      "name": "Helga Guðrún Hallgrímsdóttir",
+      "born": "15.03.1963",
+      "father": "Hallgrímur Gunnar Jónsson",
+      "mother": "Þórunn Stefáns­dóttir Rafnar",
+      "spouse": ["Einar Kristján Haraldsson"],
       "gender": "female",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1006"
+      "address": "Álftaland 1",
+      "phone": null
     },
     {
-      "name": "Tómas Samúelsson",
-      "born": "13.03.1986",
-      "father": "Sammi",
-      "mother": "Kristján Hallgrímsson",
-      "spouse": [],
+      "name": "Einar Kristján Haraldsson",
+      "born": "26.01.1964",
+      "father": "Haraldur",
+      "mother": "Halldóra",
+      "spouse": ["Helga Guðrún Hallgrímsdóttir"],
       "gender": "male",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1007"
+      "address": "Álftaland 1",
+      "phone": null
     },
     {
-      "name": "Sunna Samúelsdóttir",
-      "born": "21.10.1989",
-      "father": "Sammi",
-      "mother": "Kristján Hallgrímsson",
-      "spouse": [],
+      "name": "Ingvar Bjarki Einarsson",
+      "born": "13.01.1991",
+      "father": "Einar Kristján Haraldsson",
+      "mother": "Helga Guðrún Hallgrímsdóttir",
+      "spouse": ["Ásdís Helga Óskarsdóttir"],
+      "gender": "male",
+      "address": "Furugrund 22",
+      "phone": null
+    },
+    {
+      "name": "Ásdís Helga Óskarsdóttir",
+      "born": "03.10.1991",
+      "father": null,
+      "mother": null,
+      "spouse": ["Ingvar Bjarki Einarsson"],
       "gender": "female",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1008"
+      "address": "Furugrund 22",
+      "phone": null
     },
     {
-      "name": "Viktor Jóhannesson",
-      "born": "02.06.1990",
+      "name": "Bergur Helgi Ingvarsson",
+      "born": "19.09.2023",
+      "father": "Ingvar Bjarki Einarsson",
+      "mother": "Ásdís Helga Óskarsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Furugrund 22",
+      "phone": null
+    },
+    {
+      "name": "Einar Atli Ingvarsson",
+      "born": "23.05.2026",
+      "father": "Ingvar Bjarki Einarsson",
+      "mother": "Ásdís Helga Óskarsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Furugrund 22",
+      "phone": null
+    },
+    {
+      "name": "Hallgrímur Hrafn",
+      "born": "02.02.1993",
+      "father": "Einar Kristján Haraldsson",
+      "mother": "Helga Guðrún Hallgrímsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Útlönd",
+      "phone": null
+    },
+    {
+      "name": "Halldóra Björk Einarsdóttir",
+      "born": "13.03.1998",
+      "father": "Einar Kristján Haraldsson",
+      "mother": "Helga Guðrún Hallgrímsdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Útlönd",
+      "phone": null
+    },
+    {
+      "name": "Hanna Magnea Hallgrímsdóttir",
+      "born": "13.05.1965",
+      "father": "Hallgrímur Gunnar Jónsson",
+      "mother": "Þórunn Stefánsdóttir Rafnar",
+      "spouse": ["Samúel Sigurðsson"],
+      "gender": "female",
+      "address": "Víðars 33",
+      "phone": null
+    },
+    {
+      "name": "Samúel Sigurðsson",
+      "born": "04.07.1964",
+      "father": "Sigurður",
+      "mother": null,
+      "spouse": ["Hanna Magnea Hallgrímsdóttir"],
+      "gender": "male",
+      "address": "Víðars 33",
+      "phone": null
+    },
+    {
+      "name": "Ragna Þóra Samúelsdóttir",
+      "born": "29.11.1987",
+      "father": "Samúel Sigurðsson",
+      "mother": "Hanna Magnea Hallgrímsdóttir",
+      "spouse": ["Björn Ómarsson"],
+      "gender": "female",
+      "address": "Kvíslartunga 35",
+      "phone": null
+    },
+    {
+      "name": "Björn Ómarsson",
+      "born": "22.06.1984",
+      "father": "Ómar",
+      "mother": "Sigræður",
+      "spouse": ["Ragna Þóra Samúelsdóttir"],
+      "gender": "male",
+      "address": "Kvíslartunga 35",
+      "phone": null
+    },
+    {
+      "name": "Hanna Sigríður Björnsdóttir",
+      "born": "23.05.2011",
+      "father": "Björn Ómarsson",
+      "mother": "Ragna Þóra Samúelsdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Kvíslartunga 35",
+      "phone": null
+    },
+    {
+      "name": "Þórunn Ylfa Björnsdóttir",
+      "born": "07.03.2014",
+      "father": "Björn Ómarsson",
+      "mother": "Ragna Þóra Samúelsdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Kvíslartunga 35",
+      "phone": null
+    },
+    {
+      "name": "Katla Steinunn Björnsdóttir",
+      "born": "24.11.2019",
+      "father": "Björn Ómarsson",
+      "mother": "Ragna Þóra Samúelsdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Kvíslartunga 35",
+      "phone": null
+    },
+    {
+      "name": "Sigurður Gauti Samúelsson",
+      "born": "27.07.1994",
+      "father": "Samúel Sigurðsson",
+      "mother": "Hanna Magnea Hallgrímsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Árahólar 6",
+      "phone": null
+    },
+    {
+      "name": "Brynhildur Helga Samúelsdóttir",
+      "born": "25.03.1998",
+      "father": "Samúel Sigurðsson",
+      "mother": "Hanna Magnea Hallgrímsdóttir",
+      "spouse": ["Geir Jónsson"],
+      "gender": "male",
+      "address": "Víkurs 8",
+      "phone": null
+    },
+    {
+      "name": "Geir Jónsson",
+      "born": "28.04.1985",
+      "father": "Jón",
+      "mother": null,
+      "spouse": ["Brynhildur Helga Samúelsdóttir"],
+      "gender": "female",
+      "address": "Víkurs 8",
+      "phone": null
+    },
+    {
+      "name": "Steinar Sölvi Geirsson",
+      "born": "30.01.2024",
+      "father": "Geir Jónsson",
+      "mother": "Brynhildur Helga Samúelsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Víkurs 8",
+      "phone": null
+    },
+    {
+      "name": "Hlynur Nökkvi Geirsson",
+      "born": "26.08.2025",
+      "father": "Geir Jónsson",
+      "mother": "Brynhildur Helga Samúelsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Víkurs 8",
+      "phone": null
+    },
+    {
+      "name": "Sigrún Hallgrímsdóttir",
+      "born": "18.05.1967",
+      "father": "Hallgrímur Gunnar Jónsson",
+      "mother": "Þórunn Stefánsdóttir Rafnar",
+      "spouse": ["Jóhannes Ari Arason"],
+      "gender": "female",
+      "address": "Brekkuhjalli 4",
+      "phone": null
+    },
+    {
+      "name": "Jóhannes Ari Arason",
+      "born": "26.05.1958",
+      "father": "Ari",
+      "mother": null,
+      "spouse": ["Sigrún Hallgrímsdóttir"],
+      "gender": "male",
+      "address": "Brekkuhjalli 4",
+      "phone": null
+    },
+    {
+      "name": "Ari Jóhannesson",
+      "born": "01.10.1994",
+      "father": "Jóhannes Ari Arason",
+      "mother": "Sigrún Hallgrímsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Útlönd",
+      "phone": null
+    },
+    {
+      "name": "Þórunn Jóhannesdóttir",
+      "born": "03.01.1997",
+      "father": "Jóhannes Ari Arason",
+      "mother": "Sigrún Hallgrímsdóttir",
+      "spouse": ["Ólafur Óskar Ómarsson"],
+      "gender": "female",
+      "address": "Hlíðarhjalli 12",
+      "phone": null
+    },
+    {
+      "name": "Ólafur Óskar Ómarsson",
+      "born": "16.09.1997",
+      "father": "Ómar",
+      "mother": null,
+      "spouse": ["Þórunn Jóhannesdóttir"],
+      "gender": "male",
+      "address": "Hlíðarhjalli 12",
+      "phone": null
+    },
+    {
+      "name": "Una Ólafsdóttir",
+      "born": "12.07.2022",
+      "father": "Ólafur Óskar Ómarsson",
+      "mother": "Þórunn Jóhannesdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Hlíðarhjalli 12",
+      "phone": null
+    },
+    {
+      "name": "Alma Ólafsdóttir",
+      "born": "28.04.2026",
+      "father": "Ólafur Óskar Ómarsson",
+      "mother": "Þórunn Jóhannesdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Hlíðarhjalli 12",
+      "phone": null
+    },
+    {
+      "name": "Sigurrós Jóhannesdóttir",
+      "born": "30.06.2001",
+      "father": "Jóhannes Ari Arason",
+      "mother": "Sigrún Hallgrímsdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Útlönd",
+      "phone": null
+    },
+    {
+      "name": "Stefán Sigurður Hallgrímsson",
+      "born": "20.05.1970",
+      "father": "Hallgrímur Gunnar Jónsson",
+      "mother": "Þórunn Stefánsdóttir Rafnar",
+      "spouse": ["Ásta Þorsteinsdóttir"],
+      "gender": "male",
+      "address": "Fossagil 4",
+      "phone": null
+    },
+    {
+      "name": "Ásta Þorsteinsdóttir",
+      "born": "15.08.1970",
+      "father": "Þorsteinn",
+      "mother": null,
+      "spouse": ["Stefán Sigurður Hallgrímsson"],
+      "gender": "female",
+      "address": "Fossagil 4",
+      "phone": null
+    },
+    {
+      "name": "Þorsteinn Ingi Stefánsson",
+      "born": "26.05.1995",
+      "father": "Stefán Sigurður Hallgrímsson",
+      "mother": "Ásta Þorsteinsdóttir",
+      "spouse": ["Katariina Maria Rafnar"],
+      "gender": "male",
+      "address": null,
+      "phone": null
+    },
+    {
+      "name": "Katariina Maria Rafnar",
+      "born": "11.10.1993",
+      "father": null,
+      "mother": null,
+      "spouse": ["Þorsteinn Ingi Stefánsson"],
+      "gender": "female",
+      "address": null,
+      "phone": null
+    },
+    {
+      "name": "Rírik Iilmari Þorsteinsson Rafnar",
+      "born": "30.09.2022",
+      "father": "Þorsteinn Ingi Stefánsson",
+      "mother": "Katariina Maria Rafnar",
+      "spouse": null,
+      "gender": "male",
+      "address": null,
+      "phone": null
+    },
+    {
+      "name": "Andri Þór Stefánsson",
+      "born": "20.03.1999",
+      "father": "Stefán Sigurður Hallgrímsson",
+      "mother": "Ásta Þorsteinsdóttir",
+      "spouse": null,
+      "gender": "male",
+      "address": "Útlönd",
+      "phone": null
+    },
+    {
+      "name": "Þórunn Helga Stefánsdóttir",
+      "born": "11.06.2006",
+      "father": "Stefán Sigurður Hallgrímsson",
+      "mother": "Ásta Þorsteinsdóttir",
+      "spouse": null,
+      "gender": "female",
+      "address": "Fossagil 4",
+      "phone": null
+    },
+    {
+      "name": "Jóhann Hallgrímsson",
+      "born": "25.03.1972",
+      "father": "Hallgrímur Gunnar Jónsson",
+      "mother": "Þórunn Stefánsdóttir Rafnar",
+      "spouse": ["Bryndís Þorkelsdóttir"],
+      "gender": "male",
+      "address": "Kuggavogur 3",
+      "phone": null
+    },
+    {
+      "name": "Bryndís Þorkelsdóttir",
+      "born": "04.05.1976",
+      "father": "Þorkell Gunnarsson",
+      "mother": "Guðlaug Ottesen Karlsdóttir",
+      "spouse": ["Jóhann Hallgrímsson"],
+      "gender": "female",
+      "address": "Kuggavogur 3",
+      "phone": null
+    },
+    {
+      "name": "Einar Haukur Jóhannesson",
+      "born": "29.11.1976",
       "father": "Jóhannes",
-      "mother": "Stefán Hallgrímsson",
-      "spouse": [],
+      "mother": "Valgerður Einarsdóttir",
+      "spouse": ["Karen Helena Wallington"],
       "gender": "male",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1009"
+      "address": "Seilugrandi 3",
+      "phone": null
     },
     {
-      "name": "Katrín Jóhannsdóttir",
-      "born": "15.01.1973",
+      "name": "Karen Helena Wallington",
+      "born": "18.04.1977",
+      "father": null,
+      "mother": null,
+      "spouse": ["Einar Haukur Jóhannesson"],
+      "gender": "female",
+      "address": "Seilugrandi 3",
+      "phone": null
+    },
+    {
+      "name": "Eyvindur Tómas Einarsson",
+      "born": "02.04.2015",
+      "father": "Einar Haukur Jóhannesson",
+      "mother": "Karen Helena Wallington",
+      "spouse": null,
+      "gender": "male",
+      "address": "Seilugrandi 3",
+      "phone": null
+    },
+    {
+      "name": "Gísli Jóhannesson",
+      "born": "22.07.1979",
       "father": "Jóhannes",
-      "mother": "Stefán Hallgrímsson",
-      "spouse": [],
-      "gender": "female",
-      "address": "Hafnarbraut 8",
-      "phone": "555-1010"
-    },
-    {
-      "name": "Arnar Kristjánsson",
-      "born": "24.08.2004",
-      "father": "Rakel Hallgrímsdóttir",
-      "mother": "Asta",
-      "spouse": [],
+      "mother": "Valgerður Einarsdóttir",
+      "spouse": ["Þórey Guðmundsdóttir"],
       "gender": "male",
-      "address": "Dalsbraut 3",
-      "phone": "555-1011"
+      "address": "Hjarðarhagi 42",
+      "phone": null
     },
     {
-      "name": "Eva Kristjánsdóttir",
-      "born": "19.05.1981",
-      "father": "Rakel Hallgrímsdóttir",
-      "mother": "Asta",
-      "spouse": ["Árni Gunnarsson"],
+      "name": "Þórey Guðmundsdóttir",
+      "born": "11.11.1983",
+      "father": "Guðmundur",
+      "mother": null,
+      "spouse": ["Gísli Jóhannesson"],
       "gender": "female",
-      "address": "Brekkuvegi 5",
-      "phone": "555-1012"
+      "address": "Hjarðarhagi 42",
+      "phone": null
     },
     {
-      "name": "Haukur Sunnuson",
-      "born": "11.04.2012",
-      "father": "Sunna Samúelsdóttir",
-      "mother": "",
-      "spouse": [],
-      "gender": "male",
-      "address": "Brekkuvegi 5",
-      "phone": "555-2005"
-    },
-    {
-      "name": "Embla Sunnudóttir",
-      "born": "03.09.2014",
-      "father": "",
-      "mother": "Sunna Samúelsdóttir",
-      "spouse": [],
+      "name": "Ylfa Malena Gísladóttir",
+      "born": "29.09.2021",
+      "father": "Gísli Jóhannesson",
+      "mother": "Þórey Guðmundsdóttir",
+      "spouse": null,
       "gender": "female",
-      "address": "Brekkuvegi 5",
-      "phone": "555-2006"
-    },
-    {
-      "name": "Þórir Gunnarsson",
-      "born": "26.11.1996",
-      "father": "Gunnar Árnason",
-      "mother": "Katrín Jóhannsdóttir",
-      "spouse": ["Svanhildur Þórsdóttir"],
-      "gender": "male",
-      "address": "Brekkuvegi 5",
-      "phone": "555-1013"
-    },
-    {
-      "name": "Íris Árnadóttir",
-      "born": "12.02.2010",
-      "father": "Árni Gunnarsson",
-      "mother": "Viktor Jóhannesson",
-      "spouse": [],
-      "gender": "female",
-      "address": "Brekkuvegi 5",
-      "phone": "555-1014"
-    },
-    {
-      "name": "Snorri Árnason",
-      "born": "08.06.2018",
-      "father": "Árni Gunnarsson",
-      "mother": "Þórir Gunnarsson",
-      "spouse": [],
-      "gender": "male",
-      "address": "Brekkuvegi 5",
-      "phone": "555-1015"
+      "address": "Hjarðarhagi 42",
+      "phone": null
     }
   ]
 }
