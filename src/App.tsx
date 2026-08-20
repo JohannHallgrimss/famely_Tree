@@ -24,7 +24,6 @@ import type {
   Person
 } from './types';
 
-
 const getPersonImageUrl = (personName: string) => {
   const sanitizedName = personName
     .trim()
@@ -32,9 +31,8 @@ const getPersonImageUrl = (personName: string) => {
     .replace(/[^a-z0-9áéíóúýþðæö]+/g, '_')
     .replace(/(^-|-$)/g, '');
 
-  return `/images/${sanitizedName || 'person'}.jpg`;
+  return `${import.meta.env.BASE_URL}images/${sanitizedName || 'person'}.jpg`;
 };
-
 
 const NotFoundPage = () => (
   <main className="page-shell">
@@ -205,17 +203,6 @@ const selectPersonInModal = (name: string) => {
         <PersonModal
           person={selectedPerson}
           onClose={closeModal}
-          onImageError={() => {
-            const img =
-              document.querySelector(
-                '.person-image'
-              ) as HTMLImageElement | null;
-
-            if (img) {
-              img.src =
-                '/images/placeholder-person.svg';
-            }
-          }}
           imageUrl={
             getPersonImageUrl(selectedPerson.name)
           }

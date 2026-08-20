@@ -3,7 +3,6 @@ import type { Person } from '../types';
 interface PersonModalProps {
   person: Person;
   onClose: () => void;
-  onImageError: () => void;
   imageUrl: string;
   displayName: string;
   relationList: string[];
@@ -17,7 +16,6 @@ interface PersonModalProps {
 const PersonModal = ({
   person,
   onClose,
-  onImageError,
   imageUrl,
   displayName,
   relationList,
@@ -39,7 +37,11 @@ const PersonModal = ({
             className="person-image"
             src={imageUrl}
             alt={person.name}
-            onError={onImageError}
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src =
+                `${import.meta.env.BASE_URL}images/placeholder-person.svg`;
+            }}
           />
           <div className="portrait-badge">
             {person.gender === 'female' ? 'Kona' : 'Karl'}
