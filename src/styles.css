@@ -237,8 +237,8 @@ a {
 
   background: linear-gradient(
     145deg,
-    rgba(255,255,255,.12),
-    rgba(255,255,255,.06)
+    rgba(22, 5, 47, 0.9),
+    rgba(22, 5, 47, 0.9)
   );
 
   backdrop-filter: blur(16px);
@@ -804,10 +804,12 @@ a {
   }
 
   .person-image {
-    width: 101px;
-    height: 100px;
+    display:none;
   }
-
+  .portrait-badge {
+    display:none;
+  }
+  
   .story-grid {
     grid-template-columns: 1fr;
   }
