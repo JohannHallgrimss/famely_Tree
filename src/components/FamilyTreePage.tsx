@@ -438,32 +438,7 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
 
         <div className="tree-board tree-board-overview">
           {isMobile ? (
-            <div className="mobile-tree-shell">
-              <div className="mobile-tree-controls">
-                <label htmlFor="mobile-focus">Skoða:</label>
-                <select
-                  id="mobile-focus"
-                  value={focusName}
-                  onChange={(event) => setFocusName(event.target.value)}
-                >
-                  <option value="">Allar persónur</option>
-                  {people.map((person) => (
-                    <option key={person.name} value={person.name}>
-                      {person.name}
-                    </option>
-                  ))}
-                </select>
-                {focusName && (
-                  <button
-                    type="button"
-                    className="clear-focus"
-                    onClick={() => setFocusName('')}
-                  >
-                    Sýna allt
-                  </button>
-                )}
-              </div>
-
+            <div className="mobile-tree-shell"> 
               <div className="mobile-tree-list">
                 {generationRows.map(({ level, persons }, index) => (
                   <div className="mobile-generation" key={level}>
