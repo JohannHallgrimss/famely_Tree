@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import type { FamilyData, Person } from '../types';
-import { getRelatedPeopleNames } from '../utils/familyTreeUtils';
 
 interface FamilyTreeProps {
   onSelectPerson: (person: Person) => void;
@@ -9,10 +7,7 @@ interface FamilyTreeProps {
 }
 
 const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const initialFocus = params.get('focus') ?? '';
-  const [focusName, setFocusName] = useState<string>(initialFocus);
+ 
   const [isMobile, setIsMobile] = useState(false);
 
  useEffect(() => {
@@ -40,12 +35,7 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
   const people = data.persons;
 
   const visiblePeople = useMemo(() => {
-    if (focusName) {
-      const relatedNames = getRelatedPeopleNames(people, focusName);
-      return people.filter((person) => relatedNames.includes(person.name));
-    }
-
-    // When no focus is set, show only descendants of the family 'patriot' (root ancestor)
+   
     const root = data.patriot?.trim() ?? '';
     if (!root) {
       return people;
@@ -68,7 +58,7 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
     }
 
     return people.filter((p) => descendants.has(p.name));
-  }, [focusName, people]);
+  }, ["", people]);
 
   const parseBirthTimestamp = (born: string) => {
     const parts = born.split('.').map((part) => part.trim());
@@ -448,9 +438,7 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
                         <button
                           key={person.name}
                           type="button"
-                          className={`mobile-tree-item ${
-                            focusName === person.name ? 'tree-node-active' : ''
-                          }`}
+                          className="mobile-tree-item"
                           onClick={() => handleNodeSelect(person)}
                         >
                           <strong>{person.name}</strong>
@@ -497,7 +485,7 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
                       <button
                         key={person.name}
                         type="button"
-                        className={`tree-node ${focusName === person.name ? 'tree-node-active' : ''}`}
+                        className={`tree-node`}
                         style={{ left: `${position.x}px`, top: `${position.y}px` }}
                         title={person.name}
                         onClick={() => handleNodeSelect(person)}
