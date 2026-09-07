@@ -572,7 +572,35 @@ a {
 
 .mobile-tree-list {
   display: grid;
-  gap: 0.75rem;
+  gap: 0;
+  padding: 0.25rem 0.15rem 0.5rem;
+}
+
+.mobile-generation {
+  position: relative;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.mobile-generation-label {
+  color: #8ec5ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mobile-generation-people {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.mobile-generation-connector {
+  display: block;
+  width: 2px;
+  height: 1.25rem;
+  margin: 0.1rem auto 0.25rem;
+  background: linear-gradient(to bottom, rgba(142, 197, 255, 0.8), rgba(142, 197, 255, 0.2));
 }
 
 .mobile-tree-item {
@@ -588,6 +616,8 @@ a {
   color: inherit;
   text-align: left;
   cursor: pointer;
+  text-align: left;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .mobile-tree-item strong {
@@ -816,6 +846,37 @@ a {
 
   .tree-board {
     padding: 0.5rem;
+  }
+
+  .mobile-tree-shell {
+    gap: 1.25rem;
+  }
+
+  .mobile-tree-controls {
+    padding-bottom: 0.1rem;
+  }
+
+  .mobile-generation-people {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobile-tree-item {
+    min-width: 0;
+    min-height: 4.25rem;
+    padding: 0.8rem 0.7rem;
+    border-radius: 14px;
+    background: rgba(8, 20, 38, 0.42);
+  }
+
+  .mobile-tree-item strong {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-tree-item:active {
+    transform: scale(0.98);
   }
 
   .tree-graph-shell {

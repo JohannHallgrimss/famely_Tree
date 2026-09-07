@@ -79,7 +79,7 @@ const SiteHeader = ({
           to="/vidartre"
           className={location.pathname === "/vidartre" ? "active" : ""}
         >
-          Viðartré
+          Ættartré
         </Link>
       </nav>
 
@@ -144,7 +144,7 @@ const SiteHeader = ({
                 }`}
               onClick={() => setMobileOpen(false)}
             >
-              Viðartré
+              Ættartré
             </Link>
           </div>
         </div>

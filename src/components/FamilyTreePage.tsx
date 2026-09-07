@@ -39,24 +39,6 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
 
   const people = data.persons;
 
-  const focusPerson = focusName
-    ? people.find((person) => person.name === focusName) ?? null
-    : null;
-
-  const relatedPersonNames = focusPerson
-    ? getRelatedPeopleNames(people, focusName)
-    : [];
-
-  const mobilePeople = focusPerson
-    ? [
-        focusPerson,
-        ...people.filter(
-          (person) =>
-            person.name !== focusName && relatedPersonNames.includes(person.name)
-        ),
-      ]
-    : people;
-
   const visiblePeople = useMemo(() => {
     if (focusName) {
       const relatedNames = getRelatedPeopleNames(people, focusName);
@@ -447,7 +429,7 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
     <main className="page-shell">
       <section className="card story-card">
         <div className="story-intro">
-          <p className="eyebrow">Myndrænt viðartré</p>
+          <p className="eyebrow">Myndrænt ættartré</p>
           <h2>Yfirlit</h2>
           <p>
             Klassískt ættartré með hæðir, foreldrum og afkomendum í skýrum tengslum.
@@ -483,18 +465,28 @@ const FamilyTreePage = ({ onSelectPerson, data }: FamilyTreeProps) => {
               </div>
 
               <div className="mobile-tree-list">
-                {mobilePeople.map((person) => (
-                  <button
-                    key={person.name}
-                    type="button"
-                    className={`mobile-tree-item ${
-                      focusName === person.name ? 'tree-node-active' : ''
-                    }`}
-                    onClick={() => handleNodeSelect(person)}
-                  >
-                    <strong>{person.name}</strong>
-                    <span>{person.born || '—'}</span>
-                  </button>
+                {generationRows.map(({ level, persons }, index) => (
+                  <div className="mobile-generation" key={level}>
+                    <span className="mobile-generation-label">Kynslóð {level + 1}</span>
+                    <div className="mobile-generation-people">
+                      {persons.map((person) => (
+                        <button
+                          key={person.name}
+                          type="button"
+                          className={`mobile-tree-item ${
+                            focusName === person.name ? 'tree-node-active' : ''
+                          }`}
+                          onClick={() => handleNodeSelect(person)}
+                        >
+                          <strong>{person.name}</strong>
+                          <span>{person.born || '—'}</span>
+                        </button>
+                      ))}
+                    </div>
+                    {index < generationRows.length - 1 && (
+                      <span className="mobile-generation-connector" aria-hidden="true" />
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
